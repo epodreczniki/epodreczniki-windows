@@ -1,0 +1,4 @@
+MainPackage=I:\GIT\epodreczniki-mobilne-windows\epodreczniki\bin\Debug\epodreczniki_1.0.0.1_Bundle\epodreczniki_1.0.0.1_AnyCPU_Debug.appx
+SymbolPackage=I:\GIT\epodreczniki-mobilne-windows\epodreczniki\AppPackages\epodreczniki_1.0.0.1_Debug_Test\epodreczniki_1.0.0.1_AnyCPU_Debug.appxsym
+ResourcePack=I:\GIT\epodreczniki-mobilne-windows\epodreczniki\bin\Debug\epodreczniki_1.0.0.1_Bundle\epodreczniki_1.0.0.1_scale-140.appx
+ResourcePack=I:\GIT\epodreczniki-mobilne-windows\epodreczniki\bin\Debug\epodreczniki_1.0.0.1_Bundle\epodreczniki_1.0.0.1_scale-180.appx

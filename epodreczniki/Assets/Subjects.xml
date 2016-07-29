@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<ArrayOfSubjectDataItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SubjectDataItem>
+    <Id>9</Id>
+    <Subject>Edukacja wczesnoszkolna</Subject>
+    <Ordering>1</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>5</Id>
+    <Subject>Język polski</Subject>
+    <Ordering>2</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>1</Id>
+    <Subject>Matematyka</Subject>
+    <Ordering>3</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>10</Id>
+    <Subject>Historia i społeczeństwo</Subject>
+    <Ordering>4</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>11</Id>
+    <Subject>Historia</Subject>
+    <Ordering>5</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>13</Id>
+    <Subject>Przyroda</Subject>
+    <Ordering>7</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>7</Id>
+    <Subject>Biologia</Subject>
+    <Ordering>8</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>8</Id>
+    <Subject>Geografia</Subject>
+    <Ordering>9</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>2</Id>
+    <Subject>Fizyka</Subject>
+    <Ordering>10</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>6</Id>
+    <Subject>Chemia</Subject>
+    <Ordering>11</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>12</Id>
+    <Subject>Wiedza o społeczeństwie</Subject>
+    <Ordering>16</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>3</Id>
+    <Subject>Informatyka</Subject>
+    <Ordering>17</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>4</Id>
+    <Subject>Zajęcia komputerowe</Subject>
+    <Ordering>18</Ordering>
+  </SubjectDataItem>
+  <SubjectDataItem>
+    <Id>14</Id>
+    <Subject>Edukacja dla bezpieczeństwa</Subject>
+    <Ordering>20</Ordering>
+  </SubjectDataItem>
+</ArrayOfSubjectDataItem>

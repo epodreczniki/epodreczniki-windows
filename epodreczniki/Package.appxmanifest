@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
+  <Identity Name="OrodekRozwojuEdukacji.E-podrcznikiLITE" Publisher="CN=5232FDAC-1094-45BD-AAD4-AAB22F19F148" Version="3.0.0.1" />
+  <Properties>
+    <DisplayName>E-podręczniki LITE</DisplayName>
+    <PublisherDisplayName>Ośrodek Rozwoju Edukacji</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="epodreczniki.App">
+      <m2:VisualElements DisplayName="E-podreczniki LITE" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="Aplikacja mobilna E-podręczniki LITE jest mobilnym narzędziem wspomagającym pracę z serwisem internetowym epodreczniki.pl, tworzonym i administrowanym przez Instytut Chemii Bioorganicznej PAN - Poznańskie Centrum Superkomputerowo-Sieciowe (IChB PAN PCSS), udostępniającym e-podręczniki oraz uzupełniające zasoby metodyczne i dydaktyczne tworzone w ramach projektu &quot;e-podręczniki do kształcenia ogólnego&quot; – projektu współfinansowanego przez Unię Europejską w ramach Europejskiego Funduszu Społecznego." ForegroundText="light" BackgroundColor="#464646">
+        <m2:DefaultTile Square310x310Logo="Assets\Square310x310Logo.png" Wide310x150Logo="Assets\Wide310x150Logo.png" Square70x70Logo="Assets\Square70x70Logo.png" ShortName="E-podręczniki LITE">
+        </m2:DefaultTile>
+        <m2:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#000000" />
+      </m2:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

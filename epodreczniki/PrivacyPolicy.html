@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Regulamin</title>
+
+    <style type="text/css">
+        .about_background {
+            margin-bottom: 16px;
+            padding: 16px;
+            background-color: rgb(255, 255, 255);
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(239, 239, 239) rgb(239, 239, 239) rgb(221, 221, 221);
+            -moz-border-top-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            border-image: none;
+        }
+        body {
+            font-weight: 300;
+            font-family: "open_sanslight",Calibri,Candara,Arial,sans-serif;
+            font-size: 2em;
+            /*line-height: 20px;*/
+            color: rgb(85, 85, 85);
+        }
+
+        h2 {
+            font-size: 2em;
+            /*line-height: 40px;*/
+            margin: 10px 0px;
+            font-family: inherit;
+            font-weight: 300;
+            color: rgb(8, 8, 8);
+            text-rendering: optimizelegibility;
+        }
+    </style>
+    <script type="text/javascript">
+                
+        var scrolledToPageBottom = false;
+        
+        function DocumentLoaded() {
+            
+            if (!scrolledToPageBottom && (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 10) {
+                scrolledToPageBottom = true;
+                window.external.notify("the end of the page");                    
+            }            
+            
+            window.onscroll = function (ev) {                                        
+                if (!scrolledToPageBottom && (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 10) {
+                        scrolledToPageBottom = true;    
+                        window.external.notify("the end of the page");
+                }
+            };
+        }
+        
+    </script>
+
+</head>
+<body>
+
+
+    <div class="about_background">        
+        <h2>Regulamin aplikacji mobilnej</h2>
+        Aplikacja mobilna <strong>E-podręczniki LITE</strong>, stworzona na potrzeby platformy epodreczniki.pl, administrowanej przez Instytut Chemii Bioorganicznej PAN - Poznańskie Centrum Superkomputerowo-Sieciowe (IChB PAN PCSS), udostępnia e-podręczniki oraz uzupełniające zasoby metodyczne i dydaktyczne tworzone w ramach projektu e-podręczniki do kształcenia ogólnego – projektu współfinansowanego przez Unię Europejską w ramach Europejskiego Funduszu Społecznego.
+        <p></p>
+        <!-- <p> Publikowane treści dostosowane są także dla uczniów z różnego rodzaju deficytami, dysfunkcjami i trudnościami, zgodnie z wytycznymi WCAG 2.0. </p> -->
+        <div id="cookies">
+            <strong>Informujemy, że w czasie korzystania z serwisu, na naszych serwerach w sposób automatyczny gromadzone są następujące typy informacji o użytkownikach i ich aktywności w systemie:</strong>
+            <p></p>
+            <strong>logi</strong>, zawierające takie informacje jak adres IP, data i czas korzystania z platformy, lista odwiedzonych stron systemu, przy czym logi nie zawierają danych osobowych;
+            <p></p>
+            <strong>ustawienia personalne</strong>, które umożliwiają rozpoznanie preferowanych przez użytkownika ustawień aplikacji, zaś ich pobieranie przez użytkownika jest uzależnione od indywidualnych ustawień aplikacji;
+            <p></p>
+            Na podstawie logów i ustawień generowane są dane statystyczne przydatne dla określenia profilu użytkownika aplikacji i jego potrzeb odnośnie aplikacji. Dane te zostaną wykorzystane do wzbogacenia zawartości aplikacji i poprawy jej funkcjonalności, a także do monitorowania i administrowania ruchem na platformie oraz do celów naukowo-badawczych.
+            <p></p>
+            Używając ustawień personalnych w wyżej opisany sposób nie identyfikujemy tożsamości użytkowników na podstawie informacji przechowywanych w ustawieniach. 
+            <p></p>
+        </div>
+        Dane dotyczące użytkowników epodreczniki.pl gromadzone na serwerach IChB PAN PCSS są zabezpieczone przed nieautoryzowanym dostępem i nie będą udostępniane osobom trzecim. Dostęp do aplikacji nie wymaga logowania, a więc podawania żadnych danych osobowych. Dostęp do aplikacji jest ogólnie dostępny.
+        <p></p>
+        Materiały dostępne na platformie epodreczniki.pl poprzez aplikację mobilną opublikowane zostaną zgodnie z zapisami Uchwały Rady Ministrów z dnia 3 kwietnia 2012 r. w sprawie rządowego programu kompetencji uczniów i nauczycieli w zakresie stosowania technologii informacyjno-komunikacyjnych „Cyfrowa szkoła”, która przewiduje, że zasoby edukacyjne wytworzone w ramach Projektu będą miały charakter otwarty, co oznacza powszechny, swobodny i darmowy dostęp w dowolnym miejscu i czasie, w tym dostęp bez ograniczeń lub zabezpieczeń technicznych oraz dowolność wykorzystania. W przypadku zasobów stanowiących utwory, przedmioty praw pokrewnych otwartość zasobów oznacza rozpowszechnianie na podstawie licencji Creative Commons Uznanie Autorstwa (CC-BY 3.0) lub innej wolnej licencji na nieograniczone, nieodpłatne i niewyłączne korzystanie z zasobów oraz ich ewentualnych opracowań, zarówno do celów komercyjnych, jak i niekomercyjnych.
+        <p></p>
+        <strong>Danych zbieranych automatycznie nie można zmienić ani usunąć.</strong>
+        <p></p>
+        <strong>Korzystając z serwisu epodreczniki.pl wyrażają Państwo zgodę na warunki określone powyżej.</strong>        
+        <p></p>        
+    </div>    
+</body>
+</html>

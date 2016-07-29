@@ -1,0 +1,120 @@
+﻿<Page x:Class="ePodrecznikiDesktop.Details"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="900"
+	  Title="Szczegóły" Background="Black">
+
+    <Page.Resources>
+
+        <Style x:Key="HandbookTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="56"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="LineHeight" Value="60"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+
+        <Style x:Key="HandbookSubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="LineHeight" Value="25"/>
+        </Style>
+
+        <Style x:Key="HandbookLargeAttributeTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="LineHeight" Value="26"/>
+        </Style>
+
+        <Style x:Key="HandbookLargeAttributeLabelBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource HandbookLargeAttributeTextBlockStyle}">
+            <Setter Property="FontWeight" Value="Light"/>
+        </Style>
+
+        <Style x:Key="HandbookSmallAttributeTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="LineHeight" Value="22"/>
+        </Style>
+
+        <Style x:Key="HandbookSmallAttributeLabelBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="LineHeight" Value="15"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid x:Name="ui_Grid" Margin="0,0,0,140">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="1" x:Name="ui_Cover" Source="Assets/DefaultCover.png" Stretch="Uniform" Margin="5,0,0,0" SizeChanged="ui_Cover_SizeChanged"></Image>
+        
+        <Canvas x:Name="ui_CoverMaskBackground" Grid.Column="1" Background="#FF000000" Opacity="0.5" Visibility="Collapsed"/>
+        <Path x:Name="ui_CoverReadPath" Fill="White" Opacity="0"
+               Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 193,247 246,194 246,128 246,63 193,9 128,9 z m 60,124 -132,0 c -6,0 -6,-9 0,-9 l 132,0 -32,-32 c -4,-4 3,-11 7,-7 l 43,43 -43,43 c -4,4 -11,-2 -7,-6 l 32,-32 z M 128,0 c 70,0 128,58 128,128 0,71 -58,128 -128,128 C 57,256 0,199 0,128 0,58 57,0 128,0 z" RenderTransformOrigin="0.5,0.5">
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>        
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+        <Canvas x:Name="ui_CoverReadMask" Grid.Column="1" Background="#00FFFFFF" Cursor="Hand" MouseUp="ui_CoverReadMask_MouseUp" MouseEnter="ui_CoverReadMask_MouseEnter" MouseLeave="ui_CoverReadMask_MouseLeave" />
+
+        <Grid Grid.Column="2" Margin="40,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+                <StackPanel x:Name="ui_detailsPanel">
+
+                    <TextBlock x:Name="ui_Title" Text="Tytuł e-Podręcznika!" Foreground="White" TextWrapping="Wrap"  Style="{StaticResource HandbookTitleTextBlockStyle}"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
+                        <TextBlock Grid.Column="0" Margin="0" Text="Szkoła" Foreground="White" Style="{StaticResource HandbookLargeAttributeLabelBlockStyle}" />
+                        <TextBlock Grid.Column="1" x:Name="ui_School" Margin="20,0,0,0" Foreground="White" Text="Szkoła" TextWrapping="Wrap" Style="{StaticResource HandbookLargeAttributeTextBlockStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock Grid.Column="0" Margin="0" Text="Klasa" Foreground="White" Style="{StaticResource HandbookLargeAttributeLabelBlockStyle}" />
+                        <TextBlock Grid.Column="1" x:Name="ui_Class" Margin="20,0,0,0" Foreground="White" Text="Klasa" TextWrapping="Wrap" Style="{StaticResource HandbookLargeAttributeTextBlockStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock Grid.Column="0" Margin="0" Text="Przedmiot" Foreground="White" Style="{StaticResource HandbookLargeAttributeLabelBlockStyle}" />
+                        <TextBlock Grid.Column="1" x:Name="ui_Subject" Margin="20,0,0,0" Foreground="White" Text="Nazwa" TextWrapping="Wrap" Style="{StaticResource HandbookLargeAttributeTextBlockStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="ui_PanelAbstract" Orientation="Vertical" Margin="0,30,0,0">
+                        <TextBlock Text="Streszczenie" Style="{StaticResource HandbookSmallAttributeLabelBlockStyle}" />
+                        <TextBlock x:Name="ui_Abstract" Margin="0,5,0,0" TextWrapping="Wrap" Style="{StaticResource HandbookSmallAttributeTextBlockStyle}" />                        
+                    </StackPanel>
+
+                    <StackPanel x:Name="ui_PanelSignature" Orientation="Vertical" Margin="0,30,0,0">
+                        <TextBlock Text="Sygnatura" Style="{StaticResource HandbookSmallAttributeLabelBlockStyle}" />
+                        <WebBrowser x:Name="ui_WebBrowserSignature" Height="200" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></WebBrowser>
+                    </StackPanel>
+                    
+                    <StackPanel x:Name="ui_PanelMainAuthor" Orientation="Vertical" Margin="0,20,0,0">
+                        <TextBlock Foreground="White" Text="Autor" Style="{StaticResource HandbookSmallAttributeLabelBlockStyle}" />
+                        <TextBlock x:Name="ui_MainAuthor" Margin="0,5,0,0" TextWrapping="Wrap" Style="{StaticResource HandbookSmallAttributeTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel x:Name="ui_PanelAuthors" Orientation="Vertical" Margin="0,20,0,0">
+                        <TextBlock Foreground="White" Text="Pozostali autorzy" Style="{StaticResource HandbookSmallAttributeLabelBlockStyle}" />
+                        <TextBlock x:Name="ui_Authors" Margin="0,5,0,0" TextWrapping="Wrap" Style="{StaticResource HandbookSmallAttributeTextBlockStyle}" />
+                    </StackPanel>
+
+                </StackPanel>
+
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

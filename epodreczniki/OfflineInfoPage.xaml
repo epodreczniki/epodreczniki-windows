@@ -1,0 +1,98 @@
+﻿<Page
+    x:Name="pageRoot"
+    x:Class="epodreczniki.OfflineInfoPage"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:epodreczniki"
+    xmlns:common="using:epodreczniki.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="pageRoot_Loaded" >
+
+    <Page.Resources>
+        
+        <Style x:Key="ButtonSubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="LineHeight" Value="15"/>
+        </Style>
+        
+    </Page.Resources>
+
+
+    <Page.BottomAppBar>
+        <AppBar>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="RefreshListButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"                
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource RefreshPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="RefreshListButton_Tapped"/>
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" FontFamily="Global User Interface" >
+                        Odśwież
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="AboutButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource AboutPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="About_Tapped"/>
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        O programie
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="PrivacyPolicyButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource PrivacyPolicyPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="PrivacyPolicy_Tapped"/>
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Regulamin
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="ConfigButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource ConfigPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="ConfigButton_Tapped"/>
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Ustawienia
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </AppBar>
+    </Page.BottomAppBar>
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Back button and page title -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="0,0,30,0"/>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,100" >
+            <TextBlock x:Name="txtMessage1" Text="Nie udało się uzyskać dostępu do sieci." Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="WrapWholeWords" Margin="15,10,15,10"/>
+            <TextBlock x:Name="txtMessage2" Text="Brak jest również zgody na korzystanie z sieci komórkowej." Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="WrapWholeWords" Margin="15,10,15,10"  Visibility="Collapsed"/>
+            <TextBlock x:Name="txtMessage3" Text="Pobranie listy podręczników nie jest możliwe." Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="WrapWholeWords" Margin="15,10,15,10"/>
+            <TextBlock x:Name="txtMessage4" Text="Połącz się z siecią Internet i spróbuj ponownie." Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="WrapWholeWords" Margin="15,10,15,10"/>            
+            <TextBlock x:Name="txtMessage5" Text="lub zezwól na korzystanie z sieci komórkowej." Style="{StaticResource SubheaderTextBlockStyle}" TextWrapping="WrapWholeWords" Margin="15,10,15,10" Visibility="Collapsed"/>
+        </StackPanel>
+
+    </Grid>
+</Page>

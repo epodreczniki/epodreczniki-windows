@@ -1,0 +1,175 @@
+﻿    <Page
+    x:Name="pageRoot"
+    x:Class="epodreczniki.NewAccountPage"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:epodreczniki"
+    xmlns:common="using:epodreczniki.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="pageRoot_Loaded" SizeChanged="pageRoot_SizeChanged" KeyUp="pageRoot_KeyUp">
+
+    <Page.Resources>
+        <Style x:Key="SettingsLargeAttributeTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="LineHeight" Value="30"/>
+        </Style>
+
+        <Style x:Key="SettingsLargeAttributeLabelBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SettingsLargeAttributeTextBlockStyle}">
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>            
+            <Setter Property="Margin" Value="0,0,20,10"/>
+            <Setter Property="TextWrapping" Value="WrapWholeWords"/>            
+        </Style>
+
+        <Style x:Key="SettingsMessageLabelBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SettingsLargeAttributeTextBlockStyle}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Foreground" Value="#FFFFFA21"/>            
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>        
+
+        <Style x:Key="SettingsTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Height" Value="50" />
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="MaxWidth" Value="500"/>
+        </Style>
+
+        <Style x:Key="SettingsPasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Height" Value="50" />
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="MaxWidth" Value="500"/>
+        </Style>
+        
+
+    </Page.Resources>
+
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid x:Name="mainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!-- Back button and page title -->
+        <Grid Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"
+                Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource BackPath}" 
+                Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}"
+                AutomationProperties.Name="Back"
+                AutomationProperties.AutomationId="BackButton"
+                AutomationProperties.ItemType="Navigation Button"/>
+
+            <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="0,0,30,0"/>
+        </Grid>
+
+
+        <ScrollViewer x:Name="scrollViewer" Grid.Row="1" Grid.Column="1" ZoomMode="Disabled"
+				HorizontalAlignment="Stretch" VerticalAlignment="Top">
+
+            <Grid x:Name="controlsGrid" Margin="0,0,50,30">                
+                <Grid.RowDefinitions>
+                    <!--Nazwa użytkownika-->
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <!--Hasło-->
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <!--Powtórz Hasło-->
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <!--Odzyskiwanie hasła: pytanie-->
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <!--Odzyskiwanie hasła: odpowiedź-->
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <!--Email-->
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <!-- na czas ukrycia adresu e-mail wysokość wiersza jest ustawiona z 20 na Auto: -->
+                    <!--<RowDefinition Height="20"/>-->
+                    <RowDefinition Height="Auto"/>  
+                  
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="40"/>                    
+                    <RowDefinition Height="Auto"/>             
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MaxWidth="450" />
+                    <ColumnDefinition Width="*" MaxWidth="500" />                    
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="lblUserName" Text="Nazwa użytkownika" Style="{StaticResource SettingsLargeAttributeLabelBlockStyle}"/>
+                <TextBox x:Name="txtUserName" Style="{StaticResource SettingsTextBoxStyle}" Grid.Row="0" Grid.Column="1"/>
+                <TextBlock x:Name="lblUserNameMsg" Style="{StaticResource SettingsMessageLabelBlockStyle}" Grid.Row="1" Grid.Column="1" Visibility="Collapsed"/>
+
+                <TextBlock x:Name="lblPassword" Text="Hasło" Style="{StaticResource SettingsLargeAttributeLabelBlockStyle}" Grid.Row="3" />
+                <PasswordBox x:Name="txtPassword" Style="{StaticResource SettingsPasswordBoxStyle}" Grid.Row="3" Grid.Column="1" ></PasswordBox>
+                <TextBlock x:Name="lblPasswordMsg" Style="{StaticResource SettingsMessageLabelBlockStyle}" Grid.Row="4" Grid.Column="1" Visibility="Collapsed"/>
+
+                <TextBlock x:Name="lblRepeatPassword" Text="Powtórz hasło" Style="{StaticResource SettingsLargeAttributeLabelBlockStyle}" Grid.Row="6" />
+                <PasswordBox x:Name="txtRepeatPassword" Style="{StaticResource SettingsPasswordBoxStyle}" Grid.Row="6" Grid.Column="1" ></PasswordBox>
+                <TextBlock x:Name="lblRepeatPasswordMsg" Style="{StaticResource SettingsMessageLabelBlockStyle}" Grid.Row="7" Grid.Column="1" Visibility="Collapsed"/>
+
+                <TextBlock x:Name="lblRecoveryQuestion" Text="Pytanie odzyskiwania hasła" Style="{StaticResource SettingsLargeAttributeLabelBlockStyle}" Grid.Row="9" />
+                <TextBox x:Name="txtRecoveryQuestion" Style="{StaticResource SettingsTextBoxStyle}" Grid.Row="9" Grid.Column="1" ></TextBox>
+                <TextBlock x:Name="lblRecoveryQuestionMsg" Style="{StaticResource SettingsMessageLabelBlockStyle}" Grid.Row="10" Grid.Column="1" Visibility="Collapsed"/>
+
+                <TextBlock x:Name="lblRecoveryAnswer" Text="Odpowiedź odzyskiwania hasła" Style="{StaticResource SettingsLargeAttributeLabelBlockStyle}" Grid.Row="12" />
+                <TextBox x:Name="txtRecoveryAnswer" Style="{StaticResource SettingsTextBoxStyle}" Grid.Row="12" Grid.Column="1"></TextBox>
+                <TextBlock x:Name="lblRecoveryAnswerMsg" Style="{StaticResource SettingsMessageLabelBlockStyle}" Grid.Row="13" Grid.Column="1" Visibility="Collapsed"/>
+
+                <TextBlock x:Name="lblEmail" Text="E-mail" Style="{StaticResource SettingsLargeAttributeLabelBlockStyle}" Grid.Row="15" Visibility="Collapsed"/>
+                <TextBox x:Name="txtEmail" Style="{StaticResource SettingsTextBoxStyle}" Grid.Row="15" Grid.Column="1" Visibility="Collapsed" ></TextBox>
+                <TextBlock x:Name="lblEmailMsg" Style="{StaticResource SettingsMessageLabelBlockStyle}" Grid.Row="16" Grid.Column="1" Visibility="Collapsed"/>
+
+                <Button x:Name="btnCreateAccount"  Content="Utwórz konto" Style="{StaticResource LargeButtonStyle}" Grid.Row="24" Grid.Column="1" Click="btnCreateAccount_Click" />
+            
+            </Grid>
+
+        </ScrollViewer>
+    </Grid>
+</Page>
+

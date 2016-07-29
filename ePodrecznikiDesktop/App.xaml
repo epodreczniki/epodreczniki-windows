@@ -1,0 +1,134 @@
+﻿<Application 
+    x:Class="ePodrecznikiDesktop.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+    StartupUri="MainWindow.xaml" Startup="Application_Startup" Exit="Application_Exit">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="Foreground" Value="#FFFFFFFF"/>
+                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Typography.StylisticSet20" Value="True"/>
+                <Setter Property="Typography.DiscretionaryLigatures" Value="True"/>
+                <Setter Property="Typography.CaseSensitiveForms" Value="True"/>
+                <Setter Property="LineHeight" Value="20"/>
+                <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+            </Style>
+            
+            <Style x:Key="ButtonSubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="LineHeight" Value="15"/>
+                <Setter Property="Margin" Value="0,4,0,0"/>
+            </Style>
+            
+            <clr:String x:Key="AppName">E-podręczniki</clr:String>
+
+            <Color x:Key="HandbookForegroundButtonColor">#FFFFFFFF</Color>
+            <Color x:Key="HandbookPointerOverButtonColor">#66FFFFFF</Color>
+            <Color x:Key="HandbookDisabledButtonColor">#33FFFFFF</Color>
+
+            <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="56"/>
+                <Setter Property="FontWeight" Value="Light"/>
+                <Setter Property="LineHeight" Value="40"/>
+            </Style>
+
+
+            <SolidColorBrush x:Key="HandbookForegroundButtonBrush" Color="{StaticResource HandbookForegroundButtonColor}"/>
+            <SolidColorBrush x:Key="ButtonBackgroundThemeBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ButtonForegroundThemeBrush" Color="#FFFFFFFF" />
+            <SolidColorBrush x:Key="ButtonBorderThemeBrush" Color="#FFFFFFFF" />
+            <SolidColorBrush x:Key="HandbookPointerOverButtonBrush" Color="{StaticResource HandbookPointerOverButtonColor}"/>
+            <SolidColorBrush x:Key="ButtonDisabledForegroundThemeBrush" Color="{StaticResource HandbookDisabledButtonColor}"/>
+            
+            <Thickness x:Key="ButtonBorderThemeThickness">2</Thickness>
+            <FontFamily x:Key="ContentControlThemeFontFamily">Segoe UI</FontFamily>
+            
+            <clr:Double x:Key="ControlContentThemeFontSize">14.667</clr:Double>
+
+            <clr:String x:Key="AboutPath">m 2063.3858,148.64225 c -1057.7535,0 -1914.6871,856.93365 -1914.6871,1914.68715 0,1056.2205 856.9336,1913.1541 1914.6871,1913.1541 1057.7535,0 1914.6871,-856.9336 1914.6871,-1913.1541 0,-1057.7535 -856.9336,-1914.68715 -1914.6871,-1914.68715 z m 87.3796,2891.19285 c 0,130.303 -197.7539,130.303 -197.7539,0 l 0,-1482.3878 c 0,-130.303 197.7539,-130.303 197.7539,0 l 0,1482.3878 z M 2051.122,915.13028 c 82.7807,0 148.6986,65.91797 148.6986,147.16572 0,82.7807 -65.9179,148.6987 -148.6986,148.6987 -81.2478,0 -147.1657,-65.918 -147.1657,-148.6987 0,-81.24775 65.9179,-147.16572 147.1657,-147.16572 z m 12.2638,-915.18673 c 1139.0012,0 2061.8528,922.85161 2061.8528,2063.38585 0,1139.0012 -922.8516,2061.8528 -2061.8528,2061.8528 C 924.3846,4125.1822 0,3202.3306 0,2063.3294 0,922.79516 924.3846,-0.05645 2063.3858,-0.05645 z</clr:String>
+            <clr:String x:Key="BackPath">m 128,0 c 71,0 128,58 128,128 0,71 -57,128 -128,128 C 57,256 0,199 0,128 0,58 57,0 128,0 z m -60,124 132,0 c 6,0 6,9 0,9 l -132,0 31,32 c 5,4 -2,10 -6,6 L 50,128 93,85 c 4,-4 11,3 6,7 L 68,124 z M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 194,247 247,194 247,128 247,63 194,9 128,9 z</clr:String>
+            <clr:String x:Key="PrivacyPolicyPath">M 128.15625,0 C 92.734866,0 60.557193,14.49037 36.40625,37.03125 13.86537,61.182193 -0.625,93.391113 -0.625,128.8125 c 0,35.42138 14.49037,67.61536 37.03125,90.15625 C 60.557193,241.50963 92.734866,256 128.15625,256 c 35.42138,0 67.64662,-14.49037 90.1875,-37.03125 22.54088,-22.54089 37.03125,-54.73487 37.03125,-90.15625 0,-35.421387 -14.49037,-67.630307 -37.03125,-91.78125 C 195.80287,14.49037 163.57763,0 128.15625,0 z m 0,9.65625 c 32.20125,0 62.78793,12.881683 83.71875,33.8125 20.93082,22.54088 35.4375,51.532426 35.4375,85.34375 0,32.20125 -14.50668,62.78793 -35.4375,83.71875 -20.93082,20.93081 -51.5175,35.40625 -83.71875,35.40625 -33.811321,0 -62.771621,-14.47544 -85.3125,-35.40625 -20.930818,-20.93082 -33.8125,-51.5175 -33.8125,-83.71875 0,-33.811324 12.881682,-62.80287 33.8125,-85.34375 22.540879,-20.930817 51.501179,-33.8125 85.3125,-33.8125 z m 0,54.75 c -14.49057,0 -25.75,9.665684 -25.75,24.15625 0,8.050314 1.62225,14.46738 8.0625,17.6875 -8.05031,4.83019 -11.28125,11.2785 -11.28125,17.71875 0,33.81132 43.46875,20.92787 43.46875,43.46875 0,9.66038 -6.44968,14.5 -14.5,14.5 -30.347465,-3.92732 -9.80523,-24.98523 -24.15625,-25.75 -3.22013,0 -4.8125,3.20243 -4.8125,4.8125 0,4.83019 -0.01631,11.27987 1.59375,14.5 4.83019,11.27043 16.10456,16.09375 27.375,16.09375 14.49057,0 25.78125,-8.05562 25.78125,-24.15625 0,-6.44025 -1.62225,-12.85731 -8.0625,-17.6875 6.44025,-3.22013 9.65625,-9.66844 9.65625,-17.71875 0,-22.54089 -17.71187,-22.54344 -33.8125,-30.59375 -6.44025,-3.220126 -9.65625,-6.434748 -9.65625,-12.875 0,-9.660377 6.43337,-14.5 16.09375,-14.5 17.71069,0 16.125,20.9375 16.125,20.9375 0,3.220125 3.20243,4.8125 4.8125,4.8125 3.22013,0 6.4375,-1.592375 6.4375,-4.8125 0.31135,-18.410604 -11.31042,-30.326865 -27.375,-30.59375 z m -8.03125,48.3125 c 9.66038,3.22013 25.75,6.43199 25.75,19.3125 0,6.44025 -4.82607,11.26493 -9.65625,12.875 -6.44026,-1.86461 -11.16877,-2.65587 -17.71875,-6.4375 -4.83019,-3.22013 -8.03125,-6.44968 -8.03125,-14.5 0,-6.44025 3.216,-9.63993 9.65625,-11.25 z</clr:String>
+            <clr:String x:Key="AddPath">M2064.89,150.199 C1007.13,150.199 150.199,1007.13 150.199,2064.89 C150.199,3121.11 1007.13,3978.04 2064.89,3978.04 C3122.64,3978.04 3979.57,3121.11 3979.57,2064.89 C3979.57,1007.13 3122.64,150.199 2064.89,150.199 z M2150,2803 C2150,2935 1955,2935 1955,2803 L1955,1323 C1955,1194 2150,1194 2150,1323 L2150,2803 z M1323,2161 C1168,2161 1168,1966 1323,1966 L2803,1966 C2958,1966 2958,2161 2803,2161 z M2064.89,1.5 C3203.89,1.50005 4126.74,924.352 4126.74,2064.89 C4126.74,3203.89 3203.89,4126.74 2064.89,4126.74 C925.885,4126.74 1.5,3203.89 1.5,2064.89 C1.5,924.352 925.885,1.5 2064.89,1.5 z</clr:String>
+            <clr:String x:Key="DeletePath">M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 193,247 246,194 246,128 246,63 193,9 128,9 z M 81,85 c -6,0 -6,-9 0,-9 l 25,0 0,-9 c 0,-7 5,-13 12,-13 l 19,0 c 7,0 12,6 12,13 l 0,9 25,0 c 6,0 6,9 0,9 -31,0 -62,0 -93,0 z m 59,-9 0,-9 c 0,-2 -1,-3 -3,-3 l -19,0 c -2,0 -3,1 -3,3 l 0,9 25,0 z m 31,19 c 3,0 5,2 4,5 l -6,98 c 0,2 -2,4 -5,4 l -73,0 c -3,0 -5,-2 -5,-4 l -6,-98 c 0,-3 2,-5 4,-5 l 87,0 z m -82,9 6,89 65,0 6,-89 -77,0 z M 128,0 c 70,0 128,58 128,128 0,36 -15,68 -38,91 -23,23 -55,37 -90,37 C 57,256 0,199 0,128 0,58 57,0 128,0 z</clr:String>            
+            <clr:String x:Key="DetailsPath">M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 193,247 247,194 247,128 247,63 193,9 128,9 z m 63,105 c 8,0 15,6 15,14 0,8 -7,15 -15,15 -8,0 -14,-7 -14,-15 0,-8 6,-14 14,-14 z m -63,0 c 8,0 14,6 14,14 0,8 -6,15 -14,15 -8,0 -15,-7 -15,-15 0,-8 7,-14 15,-14 z m -64,0 c 8,0 15,6 15,14 0,8 -7,15 -15,15 -8,0 -14,-7 -14,-15 0,-8 6,-14 14,-14 z M 128,0 c 70,0 128,58 128,128 0,71 -58,128 -128,128 C 57,256 0,199 0,128 0,58 57,0 128,0 z</clr:String>
+            <clr:String x:Key="ReadPath">M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 193,247 246,194 246,128 246,63 193,9 128,9 z m 60,124 -132,0 c -6,0 -6,-9 0,-9 l 132,0 -32,-32 c -4,-4 3,-11 7,-7 l 43,43 -43,43 c -4,4 -11,-2 -7,-6 l 32,-32 z M 128,0 c 70,0 128,58 128,128 0,71 -58,128 -128,128 C 57,256 0,199 0,128 0,58 57,0 128,0 z</clr:String>
+            <clr:String x:Key="HelpPath">M2063.8858,149.1987 C1006.1323,149.1987 149.1987,1006.1323 149.1987,2063.8858 149.1987,3120.1063 1006.1323,3977.0399 2063.8858,3977.0399 3121.6393,3977.0399 3978.5729,3120.1063 3978.5729,2063.8858 3978.5729,1006.1323 3121.6393,149.1987 2063.8858,149.1987 z M1953.5115,1558.0037 M2057.5,2922.956 C2111.9,2922.556 2181.9,2968.156 2180.7,3046.556 2179.5674,3120.5517 2120.7198,3170.556 2055.9,3170.556 1992.7,3170.556 1934.0099,3118.9514 1933.1,3046.156 1932.3,2982.156 1989.0972,2923.459 2057.5,2922.956 z M2063.8858,0.5 C3202.887,0.5 4125.7386,923.35161 4125.7386,2063.8858 4125.7386,3202.887 3202.887,4125.7386 2063.8858,4125.7386 924.8846,4125.7386 0.5,3202.887 0.5,2063.8858 0.5,923.35161 924.8846,0.5 2063.8858,0.5 z M2056.7124,2626.9149 C2132.4272,2619.4867 2131.139,2558.9461 2130.9989,2552.5589 2125.9989,2324.5603 2280.5003,2187.0611 2357.5006,2110.5616 2415.4393,2052.9996 2622.5027,1881.063 2624.0028,1560.065 2624.6571,1420.0612 2543.0013,1000.068 2057.6647,997.40128 1773.66,995.8408 1518.9942,1148.7332 1489.6608,1562.7305 1487.5122,1593.0536 1512.9948,1638.7303 1561.3285,1639.397 1608.6871,1640.0502 1635.1337,1604.4564 1637.6618,1564.7305 1646.9952,1418.0648 1709.6654,1150.297&#xD;&#xA;2056.3313,1145.4007 2292.3329,1142.0674 2466.0014,1308.0665 2475.5015,1561.565 2483.8905,1785.4151 2346.3112,1913.8553 2237.9997,2020.0622 2031.9982,2222.0609 1984.4262,2359.202 1982.1405,2552.0573 1981.8353,2577.8095 2006.7121,2630.3442 2056.7124,2626.9152</clr:String>            
+
+            <Style x:Key="UnstyledGraphicsButtonStyle" TargetType="{x:Type Button}">
+                
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            
+                            <StackPanel x:Name="ButtonStackPanel" Background="Black">
+                                <Path x:Name="ButtonPath" Width="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Width}" 
+						            Height="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Height}" 
+						            Stretch="Uniform"						
+                                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"                                                                                                                  
+                                    Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content}"/>
+                                <TextBlock x:Name="ButtonText"
+                                           Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Tag}"
+                                           HorizontalAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" />
+                            </StackPanel>
+                            
+                            <DataTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Fill" Value="{StaticResource ButtonDisabledForegroundThemeBrush}" TargetName="ButtonPath" />
+                                    <Setter Property="Foreground" Value="{StaticResource ButtonDisabledForegroundThemeBrush}" TargetName="ButtonText" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver"  Value="true">
+                                    <Setter Property="Fill" Value="{StaticResource HandbookPointerOverButtonBrush}" TargetName="ButtonPath" />
+                                    <Setter Property="Foreground" Value="{StaticResource HandbookPointerOverButtonBrush}" TargetName="ButtonText" />
+                                </Trigger>
+                                
+                            </DataTemplate.Triggers>
+                            
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid x:Name="GridWrapper" Background="{TemplateBinding Background}" Margin="0" RenderTransformOrigin="0.5,0.5" >
+                                <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RenderTransformOrigin="0.5,0.5" />
+                                <Grid.RenderTransform>
+                                    <ScaleTransform />
+                                </Grid.RenderTransform>
+                            </Grid>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsDefaulted" Value="true">
+                                    <Setter Property="RenderTransform" TargetName="GridWrapper">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="RenderTransform" TargetName="GridWrapper">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="0.85" ScaleY="0.85" />                                            
+                                        </Setter.Value>                                        
+                                    </Setter>                                    
+                                </Trigger>                                                             
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+    
+    
+</Application>

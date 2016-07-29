@@ -1,0 +1,20 @@
+﻿<Application
+    x:Class="epodreczniki.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:epodreczniki"
+    xmlns:localData="using:epodreczniki.Data">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/ThemeStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Application-specific resources -->
+
+            <x:String x:Key="AppName">E-podręczniki LITE</x:String>
+        </ResourceDictionary>
+        
+    </Application.Resources>
+</Application>

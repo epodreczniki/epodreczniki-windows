@@ -1,0 +1,81 @@
+﻿<Page
+    x:Name="pageRoot"
+    x:Class="epodreczniki.PrivacyPolicyPage"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:epodreczniki"
+    xmlns:common="using:epodreczniki.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="pageRoot_Loaded">
+
+    <Page.Resources>
+        <Style x:Key="ProgressIndicatorTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="ExtraLight"/>
+        </Style>
+    </Page.Resources>
+
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid x:Name="mainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="*"/>
+			<RowDefinition Height="140"/>
+        </Grid.RowDefinitions>
+
+        <!-- Back button and page title -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--<Button x:Name="backButton" Margin="39,59,39,0" Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        VerticalAlignment="Top"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>-->
+
+            <Button x:Name="backButton" Width="67" Height="67" Padding="0"
+                Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource BackPath}" 
+                Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"                    
+                AutomationProperties.Name="Back"
+                AutomationProperties.AutomationId="BackButton"
+                AutomationProperties.ItemType="Navigation Button"
+                Visibility="Collapsed"/>                        
+            
+            <StackPanel Orientation="Horizontal" Grid.Column="1" >
+                <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center"  Margin="0,0,30,0"/>
+                <ProgressBar x:Name="progressIndicator" Height="15" Width="300" IsIndeterminate="True" Margin="50,10,0,0" Visibility="Collapsed"/>
+                <TextBlock x:Name="progressTextBlock" Text="pobieranie danych w toku..." Style="{StaticResource ProgressIndicatorTextBlockStyle}" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center"  Margin="30,0,0,0" Visibility="Collapsed"/>
+            </StackPanel>
+        </Grid>
+
+        <WebView x:Name="policyWebView" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScriptNotify="policyWebView_ScriptNotify" DOMContentLoaded="policyWebView_DOMContentLoaded" Margin="0,0,0,0" />
+        
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >                
+                <Button x:Name="acceptButton" Content="Akceptuję regulamin" Click="acceptButton_Click" IsEnabled="False" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

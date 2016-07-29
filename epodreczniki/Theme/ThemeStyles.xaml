@@ -1,0 +1,456 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    mc:Ignorable="d">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <Color x:Key="HandbookForegroundButtonColor">#FFFFFFFF</Color>
+            <Color x:Key="HandbookPointerOverButtonColor">#66FFFFFF</Color>
+            <Color x:Key="HandbookDisabledButtonColor">#33FFFFFF</Color>
+            <Color x:Key="InvertHandbookForegroundButtonColor">#FF000000</Color>
+            <SolidColorBrush x:Key="ProgressBarIndeterminateForegroundThemeBrush" Color="#FFFFFFFF" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="HighContrast">
+            <Color x:Key="HandbookForegroundButtonColor">#FFFFFFFF</Color>
+            <Color x:Key="HandbookPointerOverButtonColor">#66FFFFFF</Color>
+            <Color x:Key="HandbookDisabledButtonColor">#33FFFFFF</Color>
+            <Color x:Key="InvertHandbookForegroundButtonColor">#FF000000</Color>
+            <SolidColorBrush x:Key="ProgressBarIndeterminateForegroundThemeBrush" Color="#FFFFFFFF" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <SolidColorBrush x:Key="HandbookForegroundCancelButtonBrush" Color="LemonChiffon"/>
+    <SolidColorBrush x:Key="HandbookForegroundButtonBrush" Color="{StaticResource HandbookForegroundButtonColor}"/>
+    <SolidColorBrush x:Key="HandbookPointerOverButtonBrush" Color="{StaticResource HandbookPointerOverButtonColor}"/>
+    <SolidColorBrush x:Key="ButtonDisabledForegroundThemeBrush" Color="{StaticResource HandbookDisabledButtonColor}"/>
+    <SolidColorBrush x:Key="InvertHandbookForegroundButtonBrush" Color="{StaticResource InvertHandbookForegroundButtonColor}"/>
+
+    <Style x:Key="LargeButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="25"/>
+    </Style>
+    
+    <Style x:Key="WhiteLargeButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Padding" Value="12,4,12,4"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="#713A3A3A"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Black"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Black"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="PointerFocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                        <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <x:String x:Key="BackPath">m 128,0 c 71,0 128,58 128,128 0,71 -57,128 -128,128 C 57,256 0,199 0,128 0,58 57,0 128,0 z m -60,124 132,0 c 6,0 6,9 0,9 l -132,0 31,32 c 5,4 -2,10 -6,6 L 50,128 93,85 c 4,-4 11,3 6,7 L 68,124 z M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 194,247 247,194 247,128 247,63 194,9 128,9 z</x:String>
+    <x:String x:Key="UpdatePath">M 128,9 C 63,9 10,63 10,128 10,194 63,247 128,247 194,247 247,194 247,128 247,63 194,9 128,9 z m 77,96 c 3,-6 11,-1 8,4 -8,14 -16,28 -24,42 -14,-8 -28,-16 -41,-24 -6,-3 -1,-11 4,-8 l 30,17 c -4,-37 -36,-66 -73,-66 -6,0 -6,-9 0,-9 40,0 75,29 82,68 l 14,-24 z M 52,152 c -3,5 -11,0 -8,-5 8,-14 16,-27 24,-41 13,8 27,16 41,24 5,3 1,11 -5,8 L 74,120 c 5,38 36,66 74,66 6,0 6,9 0,9 -40,0 -75,-29 -82,-68 L 52,152 z M 128,0 c 71,0 128,58 128,128 0,71 -57,128 -128,128 C 58,256 0,199 0,128 0,58 58,0 128,0 z</x:String>
+    <x:String x:Key="DownloadPath">M 128,256 C 58,256 0,199 0,128 0,58 58,0 128,0 c 71,0 128,58 128,128 0,71 -57,128 -128,128 z M 67,198 c -6,0 -6,-10 0,-10 l 123,0 c 6,0 6,10 0,10 l -123,0 z m 89,-70 c 4,-4 11,3 6,7 l -34,34 -33,-34 c -5,-4 2,-11 6,-7 l 23,23 0,-110 c 0,-6 9,-6 9,0 l 0,110 23,-23 z M 128,247 C 194,247 247,194 247,128 247,63 194,9 128,9 63,9 10,63 10,128 c 0,66 53,119 118,119 z</x:String>
+    <x:String x:Key="BlockPath">M 128,256 C 58,256 0,199 0,128 0,58 58,0 128,0 c 71,0 128,58 128,128 0,71 -57,128 -128,128 z M 67,198 c -6,0 -6,-10 0,-10 l 123,0 c 6,0 6,10 0,10 l -123,0 z M 128,247 C 194,247 247,194 247,128 247,63 194,9 128,9 63,9 10,63 10,128 c 0,66 53,119 118,119 z M 128,-10 m 39,73 c 5,-4 11,3 7,7 l -40,39 40,39 c 4,5 -2,11 -7,7 l -39,-39 -39,39 c -5,4 -11,-2 -7,-7 L 121,109 82,70 c -4,-4 2,-11 7,-7 l 39,40 39,-40 z</x:String>
+    <x:String x:Key="CancelPath">M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 194,247 247,194 247,128 247,63 194,9 128,9 z m 39,73 c 5,-4 11,3 7,7 l -40,39 40,39 c 4,5 -2,11 -7,7 l -39,-39 -39,39 c -5,4 -11,-2 -7,-7 L 121,128 82,89 c -4,-4 2,-11 7,-7 l 39,40 39,-40 z M 128,0 c 71,0 128,58 128,128 0,71 -57,128 -128,128 C 57,256 0,199 0,128 0,58 57,0 128,0 z</x:String>
+    <x:String x:Key="DeletePath">M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 193,247 246,194 246,128 246,63 193,9 128,9 z M 81,85 c -6,0 -6,-9 0,-9 l 25,0 0,-9 c 0,-7 5,-13 12,-13 l 19,0 c 7,0 12,6 12,13 l 0,9 25,0 c 6,0 6,9 0,9 -31,0 -62,0 -93,0 z m 59,-9 0,-9 c 0,-2 -1,-3 -3,-3 l -19,0 c -2,0 -3,1 -3,3 l 0,9 25,0 z m 31,19 c 3,0 5,2 4,5 l -6,98 c 0,2 -2,4 -5,4 l -73,0 c -3,0 -5,-2 -5,-4 l -6,-98 c 0,-3 2,-5 4,-5 l 87,0 z m -82,9 6,89 65,0 6,-89 -77,0 z M 128,0 c 70,0 128,58 128,128 0,36 -15,68 -38,91 -23,23 -55,37 -90,37 C 57,256 0,199 0,128 0,58 57,0 128,0 z</x:String>
+    <x:String x:Key="ReadPath">M 126,4 C 59,4 5,58 5,125 5,192 59,246 126,246 193,246 247,192 247,125 247,58 193,4 126,4 z m 63,125 -134,0 c -5,0 -5,-7 0,-7 l 134,0 -34,-34 c -3,-3 2,-8 5,-5 14,14 28,28 42,42 -14,14 -28,28 -42,42 -3,4 -8,-1 -5,-5 l 34,-33 z M 126,0 c 69,0 125,56 125,125 0,70 -56,126 -125,126 C 57,251 0,195 0,125 0,56 57,0 126,0 z</x:String>
+    <x:String x:Key="ProgressPath">m 214,36 c 23,23 37,55 37,89 0,35 -14,66 -37,89 -23,23 -54,37 -89,37 C 91,251 59,237 36,214 14,191 0,160 0,125 0,91 14,59 36,36 59,14 92.998264,0 125,0 l 0,4 C 94.076708,4.0646778 62,18 40,40 18,62 4,92 4,125 c 0,34 14,64 36,86 22,21 52,35 85,35 34,0 64,-14 86,-35 22,-22 35,-52 35,-86 0,-33 -13.39663,-63.270221 -35,-85 z</x:String>
+    <x:String x:Key="ProgressSmallPath">M 218.25,37.75 C 241.5,61 256,93 256,128 256,199 198,256 128,256 57,256 0,199 0,128 0,58 57,0 128,0 l 0,9 C 62,9 9,63 9,128 c 0,66 53,119 119,119 65,0 118,-53 118,-119 0,-32.5 -13.25,-62.25 -34.625,-83.875 z</x:String>
+    <x:String x:Key="ReadSmallPath">M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 193,247 246,194 246,128 246,63 193,9 128,9 z m 60,124 -132,0 c -6,0 -6,-9 0,-9 l 132,0 -32,-32 c -4,-4 3,-11 7,-7 l 43,43 -43,43 c -4,4 -11,-2 -7,-6 l 32,-32 z M 128,0 c 70,0 128,58 128,128 0,71 -58,128 -128,128 C 57,256 0,199 0,128 0,58 57,0 128,0 z</x:String>
+    <x:String x:Key="DetailsPath">M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 193,247 247,194 247,128 247,63 193,9 128,9 z m 63,105 c 8,0 15,6 15,14 0,8 -7,15 -15,15 -8,0 -14,-7 -14,-15 0,-8 6,-14 14,-14 z m -63,0 c 8,0 14,6 14,14 0,8 -6,15 -14,15 -8,0 -15,-7 -15,-15 0,-8 7,-14 15,-14 z m -64,0 c 8,0 15,6 15,14 0,8 -7,15 -15,15 -8,0 -14,-7 -14,-15 0,-8 6,-14 14,-14 z M 128,0 c 70,0 128,58 128,128 0,71 -58,128 -128,128 C 57,256 0,199 0,128 0,58 57,0 128,0 z</x:String>
+    <x:String x:Key="AboutPath">m 2063.3858,148.64225 c -1057.7535,0 -1914.6871,856.93365 -1914.6871,1914.68715 0,1056.2205 856.9336,1913.1541 1914.6871,1913.1541 1057.7535,0 1914.6871,-856.9336 1914.6871,-1913.1541 0,-1057.7535 -856.9336,-1914.68715 -1914.6871,-1914.68715 z m 87.3796,2891.19285 c 0,130.303 -197.7539,130.303 -197.7539,0 l 0,-1482.3878 c 0,-130.303 197.7539,-130.303 197.7539,0 l 0,1482.3878 z M 2051.122,915.13028 c 82.7807,0 148.6986,65.91797 148.6986,147.16572 0,82.7807 -65.9179,148.6987 -148.6986,148.6987 -81.2478,0 -147.1657,-65.918 -147.1657,-148.6987 0,-81.24775 65.9179,-147.16572 147.1657,-147.16572 z m 12.2638,-915.18673 c 1139.0012,0 2061.8528,922.85161 2061.8528,2063.38585 0,1139.0012 -922.8516,2061.8528 -2061.8528,2061.8528 C 924.3846,4125.1822 0,3202.3306 0,2063.3294 0,922.79516 924.3846,-0.05645 2063.3858,-0.05645 z</x:String>
+    <x:String x:Key="RefreshPath">m 2063.3858,148.6619 c -1057.7535,0 -1914.68712,856.9336 -1914.68712,1914.6871 0,1056.2205 856.93362,1913.1541 1914.68712,1913.1541 1056.2205,0 1913.1541,-856.9336 1913.1541,-1913.1541 0,-1057.7535 -856.9336,-1914.6871 -1913.1541,-1914.6871 z m 645.3829,2560.07 c 29.1265,-29.1265 76.6488,-29.1265 105.7753,0 29.1266,29.1266 29.1266,76.6488 0,105.7754 -208.4847,206.9517 -479.8215,311.1941 -751.1582,311.1941 l 0,0 c -587.1299,0 -1063.88541,-476.7555 -1063.88541,-1062.3524 0,-587.1298 476.75551,-1063.88539 1063.88541,-1063.88539 479.8215,0 901.3899,323.45799 1025.561,786.41669 27.5935,105.7754 39.8573,213.0837 35.2584,321.925 l 332.6558,-332.6558 c 68.9839,-68.9839 173.2263,35.2584 104.2424,104.2424 l -544.2065,544.2065 -544.2065,-544.2065 c -68.9839,-68.984 36.7914,-173.2263 105.7753,-104.2424 l 392.4419,392.4419 c 13.7968,-114.9732 4.5989,-231.4794 -24.5276,-343.3867 -107.3083,-398.5737 -470.6237,-676.0424 -882.9942,-676.0424 -505.8821,0 -915.1867,409.3046 -915.1867,915.1867 0,504.3491 409.3046,913.6537 915.1867,913.6537 l 0,0 c 233.0123,0 467.5577,-88.9126 645.3829,-268.2708 z M 2063.3858,-0.03680203 c 1139.0012,0 2061.8528,922.85161203 2061.8528,2063.38580203 0,1139.0012 -922.8516,2061.8528 -2061.8528,2061.8528 C 922.85159,4125.2018 0,3202.3502 0,2063.349 0,922.81481 922.85159,-0.03680203 2063.3858,-0.03680203 z</x:String>
+    <x:String x:Key="PrivacyPolicyPath">M 128.15625,0 C 92.734866,0 60.557193,14.49037 36.40625,37.03125 13.86537,61.182193 -0.625,93.391113 -0.625,128.8125 c 0,35.42138 14.49037,67.61536 37.03125,90.15625 C 60.557193,241.50963 92.734866,256 128.15625,256 c 35.42138,0 67.64662,-14.49037 90.1875,-37.03125 22.54088,-22.54089 37.03125,-54.73487 37.03125,-90.15625 0,-35.421387 -14.49037,-67.630307 -37.03125,-91.78125 C 195.80287,14.49037 163.57763,0 128.15625,0 z m 0,9.65625 c 32.20125,0 62.78793,12.881683 83.71875,33.8125 20.93082,22.54088 35.4375,51.532426 35.4375,85.34375 0,32.20125 -14.50668,62.78793 -35.4375,83.71875 -20.93082,20.93081 -51.5175,35.40625 -83.71875,35.40625 -33.811321,0 -62.771621,-14.47544 -85.3125,-35.40625 -20.930818,-20.93082 -33.8125,-51.5175 -33.8125,-83.71875 0,-33.811324 12.881682,-62.80287 33.8125,-85.34375 22.540879,-20.930817 51.501179,-33.8125 85.3125,-33.8125 z m 0,54.75 c -14.49057,0 -25.75,9.665684 -25.75,24.15625 0,8.050314 1.62225,14.46738 8.0625,17.6875 -8.05031,4.83019 -11.28125,11.2785 -11.28125,17.71875 0,33.81132 43.46875,20.92787 43.46875,43.46875 0,9.66038 -6.44968,14.5 -14.5,14.5 -30.347465,-3.92732 -9.80523,-24.98523 -24.15625,-25.75 -3.22013,0 -4.8125,3.20243 -4.8125,4.8125 0,4.83019 -0.01631,11.27987 1.59375,14.5 4.83019,11.27043 16.10456,16.09375 27.375,16.09375 14.49057,0 25.78125,-8.05562 25.78125,-24.15625 0,-6.44025 -1.62225,-12.85731 -8.0625,-17.6875 6.44025,-3.22013 9.65625,-9.66844 9.65625,-17.71875 0,-22.54089 -17.71187,-22.54344 -33.8125,-30.59375 -6.44025,-3.220126 -9.65625,-6.434748 -9.65625,-12.875 0,-9.660377 6.43337,-14.5 16.09375,-14.5 17.71069,0 16.125,20.9375 16.125,20.9375 0,3.220125 3.20243,4.8125 4.8125,4.8125 3.22013,0 6.4375,-1.592375 6.4375,-4.8125 0.31135,-18.410604 -11.31042,-30.326865 -27.375,-30.59375 z m -8.03125,48.3125 c 9.66038,3.22013 25.75,6.43199 25.75,19.3125 0,6.44025 -4.82607,11.26493 -9.65625,12.875 -6.44026,-1.86461 -11.16877,-2.65587 -17.71875,-6.4375 -4.83019,-3.22013 -8.03125,-6.44968 -8.03125,-14.5 0,-6.44025 3.216,-9.63993 9.65625,-11.25 z</x:String>
+    <x:String x:Key="ConfigPath">M 128,9 C 62,9 9,63 9,128 9,194 62,247 128,247 193,247 247,194 247,128 247,63 193,9 128,9 z m 63,105 c 8,0 15,6 15,14 0,8 -7,15 -15,15 -8,0 -14,-7 -14,-15 0,-8 6,-14 14,-14 z m -63,0 c 8,0 14,6 14,14 0,8 -6,15 -14,15 -8,0 -15,-7 -15,-15 0,-8 7,-14 15,-14 z m -64,0 c 8,0 15,6 15,14 0,8 -7,15 -15,15 -8,0 -14,-7 -14,-15 0,-8 6,-14 14,-14 z M 128,0 c 70,0 128,58 128,128 0,71 -58,128 -128,128 C 57,256 0,199 0,128 0,58 57,0 128,0 z</x:String>
+    <x:String x:Key="PrevPath">M2064.89,150.199 C1007.13,150.199 150.199,1007.13 150.199,2064.89 C150.199,3121.11 1007.13,3978.04 2064.89,3978.04 C3122.64,3978.04 3979.57,3121.11 3979.57,2064.89 C3979.57,1007.13 3122.64,150.199 2064.89,150.199 z M2500,800 L1250,2050 L2500,3300 S2540,3440 2400,3400 L1050,2050 L2400,700 S2540,660 2500,800 z M2064.89,1.5 C3203.89,1.50005 4126.74,924.352 4126.74,2064.89 C4126.74,3203.89 3203.89,4126.74 2064.89,4126.74 C925.885,4126.74 1.5,3203.89 1.5,2064.89 C1.5,924.352 925.885,1.5 2064.89,1.5 z</x:String>
+    <x:String x:Key="NextPath">M2064.89,150.199 C1007.13,150.199 150.199,1007.13 150.199,2064.89 C150.199,3121.11 1007.13,3978.04 2064.89,3978.04 C3122.64,3978.04 3979.57,3121.11 3979.57,2064.89 C3979.57,1007.13 3122.64,150.199 2064.89,150.199 z M1600,800 L2800,2050 L1600,3300 S1560,3440 1700,3400 L3000,2050 L1700,700 S1560,660 1600,800 z M2064.89,1.5 C3203.89,1.50005 4126.74,924.352 4126.74,2064.89 C4126.74,3203.89 3203.89,4126.74 2064.89,4126.74 C925.885,4126.74 1.5,3203.89 1.5,2064.89 C1.5,924.352 925.885,1.5 2064.89,1.5 z</x:String>
+    <x:String x:Key="ToCPath">M2064.89,150.199 C1007.13,150.199 150.199,1007.13 150.199,2064.89 C150.199,3121.11 1007.13,3978.04 2064.89,3978.04 C3122.64,3978.04 3979.57,3121.11 3979.57,2064.89 C3979.57,1007.13 3122.64,150.199 2064.89,150.199 z M1000,1980 L3000,1980 S3070,2050 3000,2120 L1000,2120 S930,2050 1000,1980 z M1000,1280 L3000,1280 S3070,1350 3000,1420 L1000,1420  S930,1350 1000,1280 z M1000,2680 L3000,2680 S3070,2750 3000,2820 L1000,2820 S930,2750 1000,2680 z M2064.89,1.5 C3203.89,1.50005 4126.74,924.352 4126.74,2064.89 C4126.74,3203.89 3203.89,4126.74 2064.89,4126.74 C925.885,4126.74 1.5,3203.89 1.5,2064.89 C1.5,924.352 925.885,1.5 2064.89,1.5 z</x:String>
+    <x:String x:Key="FontSizeInc">M2064.89,150.199 C1007.13,150.199 150.199,1007.13 150.199,2064.89 C150.199,3121.11 1007.13,3978.04 2064.89,3978.04 C3122.64,3978.04 3979.57,3121.11 3979.57,2064.89 C3979.57,1007.13 3122.64,150.199 2064.89,150.199 z M2150,2803 C2150,2935 1955,2935 1955,2803 L1955,1323 C1955,1194 2150,1194 2150,1323 L2150,2803 z M1323,2161 C1168,2161 1168,1966 1323,1966 L2803,1966 C2958,1966 2958,2161 2803,2161 z M2064.89,1.5 C3203.89,1.50005 4126.74,924.352 4126.74,2064.89 C4126.74,3203.89 3203.89,4126.74 2064.89,4126.74 C925.885,4126.74 1.5,3203.89 1.5,2064.89 C1.5,924.352 925.885,1.5 2064.89,1.5 z</x:String>
+    <x:String x:Key="FontSizeDec">M2064.89,150.199 C1007.13,150.199 150.199,1007.13 150.199,2064.89 C150.199,3121.11 1007.13,3978.04 2064.89,3978.04 C3122.64,3978.04 3979.57,3121.11 3979.57,2064.89 C3979.57,1007.13 3122.64,150.199 2064.89,150.199 z M1323,2161 C1168,2161 1168,1966 1323,1966 L2803,1966 C2958,1966 2958,2161 2803,2161 z M2064.89,1.5 C3203.89,1.50005 4126.74,924.352 4126.74,2064.89 C4126.74,3203.89 3203.89,4126.74 2064.89,4126.74 C925.885,4126.74 1.5,3203.89 1.5,2064.89 C1.5,924.352 925.885,1.5 2064.89,1.5 z</x:String>        
+    <x:String x:Key="ExitPath">m 24.0006,1.72538 c -6.15143,0 -11.72053,2.49339 -15.75119,6.52404 -4.03065,4.02946 -6.52404,9.59976 -6.52404,15.74998 0,6.15142 2.49339,11.72053 6.52404,15.75118 4.03066,4.03065 9.59976,6.52405 15.75119,6.52405 6.15022,0 11.71933,-2.4934 15.74998,-6.52405 4.03065,-4.03065 6.52405,-9.59976 6.52405,-15.75118 0,-6.15022 -2.4934,-11.72052 -6.52405,-15.74998 C 35.71993,4.21877 30.15082,1.72538 24.0006,1.72538 z m 0.98131,32.782 c 0.47686,0 0.86267,0.38581 0.86267,0.86268 0,0.47568 -0.38581,0.86268 -0.86267,0.86268 l -11.50247,0 -0.86269,0 0,-0.86268 0,-23.00491 0,-0.86269 0.86269,0 11.50247,0 c 0.47686,0 0.86267,0.38581 0.86267,0.86269 0,0.47568 -0.38581,0.86268 -0.86267,0.86268 l -10.63978,0 0,21.27955 10.63978,0 z m 11.45333,-9.6453 -17.20457,0 c -0.47568,0 -0.86268,-0.3858 -0.86268,-0.86268 0,-0.47567 0.387,-0.86268 0.86268,-0.86268 l 17.20457,0 -5.95972,-5.95971 c -0.33668,-0.33669 -0.33668,-0.88306 0,-1.21974 0.33669,-0.33669 0.88306,-0.33669 1.21975,0 l 7.43346,7.43227 0.60987,0.60986 -0.60987,0.61107 -7.43346,7.43227 c -0.33669,0.33669 -0.88306,0.33669 -1.21975,0 -0.33668,-0.33669 -0.33668,-0.88306 0,-1.21974 l 5.95972,-5.96092 z M 7.02967,7.02968 C 11.37305,2.6863 17.37231,0 24.0006,0 30.62769,0 36.62814,2.6863 40.97032,7.02968 45.3137,11.37186 48,17.37231 48,23.9994 48,30.6265 45.3137,36.62695 40.97032,40.97032 36.62814,45.3137 30.62769,48 24.0006,48 17.37231,48 11.37305,45.3137 7.02967,40.97032 2.6863,36.62695 0,30.6265 0,23.9994 0,17.37231 2.6863,11.37186 7.02967,7.02968 z</x:String>
+    <x:String x:Key="SettingsPath">m 23.9994,1.72538 c -6.15023,0 -11.71933,2.49339 -15.74999,6.52404 -4.03065,4.02946 -6.52404,9.59976 -6.52404,15.74998 0,6.15142 2.49339,11.72053 6.52404,15.75118 4.03066,4.03065 9.59976,6.52405 15.74999,6.52405 6.15142,0 11.72053,-2.4934 15.75118,-6.52405 4.03065,-4.03065 6.52405,-9.59976 6.52405,-15.75118 0,-6.15022 -2.4934,-11.72052 -6.52405,-15.74998 C 35.71993,4.21877 30.15082,1.72538 23.9994,1.72538 z m 11.50365,33.92985 -23.00491,0 -0.67217,0 -0.16416,-0.65301 c -0.004,-0.0179 -1.56481,-6.02681 4.88016,-7.6024 1.54085,-0.37623 2.88879,-0.81476 3.74669,-1.3144 l -9.6e-4,-9.6e-4 c 0.34387,-0.20009 0.58351,-0.3918 0.68295,-0.56433 0.0299,-0.0503 0.0311,-0.10785 -9.5e-4,-0.17135 l 0,-0.004 c -0.0635,-0.12341 -0.19171,-0.26838 -0.393,-0.43613 -2.10279,-1.75173 -3.20631,-4.63693 -3.2171,-7.38794 -0.004,-1.00047 0.133,-1.98537 0.41697,-2.89119 0.28876,-0.92858 0.73328,-1.78527 1.33716,-2.51017 1.10951,-1.33237 2.73064,-2.19266 4.88375,-2.20104 l 0.006,0 c 2.15312,0.009 3.77425,0.86867 4.88496,2.20104 0.60267,0.7249 1.04719,1.58159 1.33715,2.51017 0.28278,0.90582 0.42056,1.89072 0.41697,2.89119 -0.012,2.75101 -1.1143,5.63621 -3.2183,7.38794 -0.19889,0.16654 -0.32709,0.31152 -0.39299,0.43972 -0.0323,0.0634 -0.0311,0.12102 -9.6e-4,0.17135 0.10064,0.17373 0.33908,0.36424 0.68296,0.56433 l 0,9.6e-4 c 0.85789,0.49964 2.20464,0.93817 3.74549,1.3144 6.44496,1.57559 4.88494,7.58443 4.88015,7.6024 l -0.16295,0.65301 -0.67218,0 z m -22.26923,-1.72537 21.53236,0 c 0.10664,-1.25929 -0.10664,-3.97673 -3.71194,-4.85739 -1.69422,-0.41457 -3.19912,-0.91061 -4.20678,-1.49892 l -0.004,0 c -0.59189,-0.34507 -1.04241,-0.74047 -1.30361,-1.19099 -0.33429,-0.57392 -0.37024,-1.18139 -0.0395,-1.82241 0.16774,-0.3259 0.43853,-0.65061 0.82554,-0.97172 1.69661,-1.41384 2.58686,-3.78982 2.59644,-6.07474 0.004,-0.81835 -0.11023,-1.62711 -0.34268,-2.37237 -0.22526,-0.7249 -0.56314,-1.3827 -1.01365,-1.92308 -0.79679,-0.95614 -1.97819,-1.57439 -3.56576,-1.58158 -1.58758,0.007 -2.77018,0.62544 -3.56696,1.58158 -0.45051,0.54038 -0.7872,1.19818 -1.01366,1.92308 -0.23244,0.74526 -0.34508,1.55402 -0.34267,2.37237 0.01,2.28492 0.89982,4.6609 2.59763,6.07474 0.38342,0.31871 0.65421,0.64341 0.82315,0.97172 l 9.6e-4,0 c 0.33069,0.64102 0.29355,1.24849 -0.0383,1.82241 -0.26239,0.45052 -0.71171,0.84592 -1.30361,1.19099 l -0.004,0 c -1.00767,0.58831 -2.51377,1.08435 -4.20678,1.49892 -3.60531,0.88066 -3.81979,3.5981 -3.71315,4.85739 z M 7.02967,7.02968 C 11.37185,2.6863 17.37231,0 23.9994,0 30.62769,0 36.62814,2.6863 40.97032,7.02968 45.3137,11.37186 48,17.37231 48,23.9994 48,30.6265 45.3137,36.62695 40.97032,40.97032 36.62814,45.3137 30.62769,48 23.9994,48 17.37231,48 11.37185,45.3137 7.02967,40.97032 2.6863,36.62695 0,30.6265 0,23.9994 0,17.37231 2.6863,11.37186 7.02967,7.02968 z</x:String>
+    <x:String x:Key="AddNotePath">M 24,0 C 37.25385,0 48,10.74521 48,23.9994 48,37.25479 37.25505,48 24,48 10.74614,48 0,37.25479 0,23.9994 0,10.74521 10.74614,0 24,0 z m -4.03654,30.45036 8.0647,0 0.007,-19.19832 -8.0635,0 -0.009,19.19832 z m 7.353,1.72537 -6.6425,0 3.32005,5.20128 3.32245,-5.20128 z m 2.29444,-0.40138 -4.89202,7.65991 -0.72487,1.13468 -0.72368,-1.13468 -4.89082,-7.65991 -0.13419,-0.21088 0,-0.25042 0.009,-20.92369 9.6e-4,-0.86268 0.85787,0 9.78284,0 0.86027,0 -9.6e-4,0.86268 -0.009,20.92369 0,0.25042 -0.13539,0.21088 z M 24,1.72538 c -12.30134,0 -22.27468,9.97238 -22.27468,22.27402 0,12.30284 9.97334,22.27523 22.27468,22.27523 12.30134,0 22.27468,-9.97358 22.27468,-22.27523 C 46.27468,11.69776 36.30134,1.72538 24,1.72538 z</x:String>
+    <x:String x:Key="AddNotePath2">m 23.99993,1.72538 c -6.15091,0 -11.71965,2.49339 -15.75041,6.52404 -4.03053,4.02946 -6.52416,9.59976 -6.52416,15.74998 0,6.15142 2.49328,11.72053 6.52416,15.75118 4.03076,4.03065 9.5995,6.52405 15.75041,6.52405 6.1508,0 11.7199,-2.4934 15.75067,-6.52405 4.03088,-4.03065 6.52404,-9.59976 6.52404,-15.75118 0,-6.15022 -2.49352,-11.72052 -6.52404,-15.74998 C 35.71983,4.21877 30.15073,1.72538 23.99993,1.72538 z M 12.58737,24.1336 c -0.47615,0 -0.86268,-0.38581 -0.86268,-0.86269 0,-0.47567 0.38653,-0.86268 0.86268,-0.86268 l 3.47074,0 0,-3.4711 c 0,-0.47568 0.38652,-0.86269 0.86268,-0.86269 0.47615,0 0.86268,0.38701 0.86268,0.86269 l 0,3.4711 3.47074,0 c 0.47628,0 0.86269,0.38701 0.86269,0.86268 0,0.47688 -0.38641,0.86269 -0.86269,0.86269 l -3.47074,0 0,3.4711 c 0,0.47688 -0.38653,0.86269 -0.86268,0.86269 -0.47616,0 -0.86268,-0.38581 -0.86268,-0.86269 l 0,-3.4711 -3.47074,0 z m 0,14.7507 c -0.47615,0 -0.86268,-0.38581 -0.86268,-0.86268 0,-0.47567 0.38653,-0.86269 0.86268,-0.86269 l 23.00474,0 c 0.47614,0 0.86268,0.38702 0.86268,0.86269 0,0.47687 -0.38654,0.86268 -0.86268,0.86268 l -23.00474,0 z m 16.82122,-28.852 4.4935,1.20417 0.83309,0.22286 -0.2231,0.83153 -4.81617,17.97378 -0.0513,0.19292 -0.13756,0.15456 -3.45073,3.89166 -1.14113,1.28684 -0.34472,-1.68464 -1.04277,-5.09582 -0.0413,-0.20249 0.0513,-0.19171 4.81604,-17.97379 0.22345,-0.83273 0.83141,0.22286 z m 3.21577,2.64557 -2.82887,-0.75844 -4.54167,16.95054 0.65649,3.20751 2.17239,-2.44906 4.54166,-16.95055 z M 7.02954,7.02968 C 11.37243,2.6863 17.3725,0 23.99993,0 30.62726,0 36.62769,2.6863 40.97058,7.02968 45.31357,11.37186 48,17.37231 48,23.9994 48,30.6265 45.31357,36.62695 40.97058,40.97032 36.62769,45.3137 30.62726,48 23.99993,48 17.3725,48 11.37243,45.3137 7.02954,40.97032 2.68654,36.62695 0,30.6265 0,23.9994 0,17.37231 2.68654,11.37186 7.02954,7.02968 z</x:String>
+    <x:String x:Key="AddBookmarkPath">M 24.00061,0 C 37.25479,0 48,10.74521 48,23.9994 48,37.25479 37.25479,48 24.00061,48 10.74521,48 0,37.25479 0,23.9994 0,10.74521 10.74521,0 24.00061,0 z m -5.75722,37.60945 0.012,-27.22009 9.6e-4,-0.86268 0.85789,0 9.78309,0 0.86028,0 -9.6e-4,0.86268 -0.012,27.21888 0,2.07884 -1.46896,-1.46897 -4.28107,-4.27986 -4.28107,4.28106 -1.47015,1.47016 0,-2.08002 z m 1.73016,-26.35741 -0.01,24.27738 3.42078,-3.42198 0.60987,-0.60987 0.60987,0.60987 3.42318,3.42318 0.0107,-24.27858 -8.0649,0 z m 4.02706,-9.52666 c -12.30165,0 -22.27523,9.97238 -22.27523,22.27402 0,12.30284 9.97238,22.27523 22.27523,22.27523 12.30163,0 22.27402,-9.97358 22.27402,-22.27523 0,-12.30164 -9.97239,-22.27402 -22.27402,-22.27402 z</x:String>
+    <x:String x:Key="AddBookmarkPath2">m 23.99988,1.72538 c -6.15091,0 -11.71963,2.49339 -15.75038,6.52404 -4.03051,4.02946 -6.52414,9.59976 -6.52414,15.74998 0,6.15142 2.49327,11.72053 6.52414,15.75118 4.03075,4.03065 9.59947,6.52405 15.75038,6.52405 6.15079,0 11.71986,-2.4934 15.75062,-6.52405 4.03087,-4.03065 6.52413,-9.59976 6.52413,-15.75118 0,-6.15022 -2.49362,-11.72052 -6.52413,-15.74998 C 35.71974,4.21877 30.15067,1.72538 23.99988,1.72538 z m 0.53631,9.03062 6.7652,0 0.86267,0 0,0.86269 0,24.76263 0,2.40832 -1.5267,-1.86315 -2.7184,-3.31654 -2.71888,3.31654 -1.52658,1.86315 0,-2.40832 0,-24.76263 0,-0.86269 0.86269,0 z m 5.90251,1.72537 -5.03984,0 0,21.49042 1.85608,-2.26334 0.66426,-0.80997 0.66367,0.80997 1.85583,2.26334 0,-21.49042 z M 11.95051,24.73029 c -0.47615,0 -0.86268,-0.38701 -0.86268,-0.86269 0,-0.47686 0.38653,-0.86268 0.86268,-0.86268 l 3.47074,0 0,-3.4711 c 0,-0.47688 0.38652,-0.86269 0.86268,-0.86269 0.47615,0 0.86268,0.38581 0.86268,0.86269 l 0,3.4711 3.47072,0 c 0.47628,0 0.86268,0.38582 0.86268,0.86268 0,0.47568 -0.3864,0.86269 -0.86268,0.86269 l -3.47072,0 0,3.46991 c 0,0.47687 -0.38653,0.86268 -0.86268,0.86268 -0.47616,0 -0.86268,-0.38581 -0.86268,-0.86268 l 0,-3.46991 -3.47074,0 z M 7.02953,7.02968 C 11.3724,2.6863 17.37246,0 23.99988,0 30.62718,0 36.6276,2.6863 40.97047,7.02968 45.31347,11.37186 48,17.37231 48,23.9994 48,30.6265 45.31347,36.62695 40.97047,40.97032 36.6276,45.3137 30.62718,48 23.99988,48 17.37246,48 11.3724,45.3137 7.02953,40.97032 2.68653,36.62695 0,30.6265 0,23.9994 0,17.37231 2.68653,11.37186 7.02953,7.02968 z</x:String>
+    <x:String x:Key="ResetPasswordPath">m 24.0006,1.72538 c -6.15142,0 -11.72053,2.49339 -15.75118,6.52404 -4.03065,4.02946 -6.52405,9.59976 -6.52405,15.74998 0,6.15142 2.4934,11.72053 6.52405,15.75118 4.03065,4.03065 9.59976,6.52405 15.75118,6.52405 6.15022,0 11.71933,-2.4934 15.74998,-6.52405 4.03065,-4.03065 6.52405,-9.59976 6.52405,-15.75118 0,-6.15022 -2.4934,-11.72052 -6.52405,-15.74998 C 35.71993,4.21877 30.15082,1.72538 24.0006,1.72538 z m -7.61439,18.89637 c -0.0287,0.0216 -0.0586,0.0407 -0.0887,0.0586 l -0.67216,0.44571 -0.44213,-0.66857 c -0.0252,-0.0311 -0.0479,-0.0659 -0.0671,-0.10065 l -2.5509,-3.85093 c -0.2624,-0.39539 -0.15337,-0.92978 0.24323,-1.19218 0.3954,-0.2624 0.92978,-0.15336 1.19218,0.24203 l 1.32278,1.99736 c 0.41816,-1.52527 1.22933,-2.89119 2.31727,-3.97914 l -9.6e-4,-0.002 c 1.62712,-1.62712 3.87729,-2.63479 6.3611,-2.63479 2.48381,0 4.73278,1.00767 6.3611,2.63479 l -0.002,0.002 c 1.62951,1.62952 2.63718,3.87849 2.63718,6.35871 l -0.004,0 0,3.20392 0.004,0 0,0.86267 0,4.0666 c 0,2.48501 -1.00767,4.73399 -2.63478,6.36111 l -0.002,-9.6e-4 c -1.62951,1.62831 -3.87849,2.63598 -6.3587,2.63598 -2.48262,0 -4.73039,-1.00647 -6.35871,-2.63479 l -0.002,0 c -1.62832,-1.62711 -2.63598,-3.87728 -2.63598,-6.3611 l 0.004,0 9.6e-4,-4.0666 0,-0.86268 0.85909,0 15.4073,0 0,-3.20391 -0.004,0 c 0,-2.00933 -0.81236,-3.82817 -2.12676,-5.14136 l -0.002,0 c -1.31559,-1.31559 -3.13441,-2.12916 -5.14135,-2.12916 -2.00815,0 -3.82577,0.81357 -5.14136,2.12916 l -0.004,0 c -0.9202,0.9214 -1.59596,2.08961 -1.91588,3.39921 l 2.35442,-1.56002 c 0.39659,-0.2612 0.93098,-0.15336 1.19337,0.24323 0.2612,0.39539 0.15337,0.92979 -0.24322,1.19218 l -3.85812,2.5557 z m 0.34028,4.24033 0,3.20392 0.002,0 c 0,2.00813 0.81475,3.82577 2.13035,5.14136 l -0.002,0.002 c 1.31559,1.31439 3.13441,2.12676 5.14375,2.12676 2.00934,0 3.82696,-0.81237 5.14016,-2.12556 l 0,-0.004 c 1.3156,-1.3156 2.13035,-3.13322 2.13035,-5.14136 l 0,-3.20391 -14.54462,0 z M 7.02968,7.02968 C 11.37306,2.6863 17.3723,0 24.0006,0 30.6277,0 36.62814,2.6863 40.97032,7.02968 45.3137,11.37186 48,17.37231 48,23.9994 48,30.6265 45.3137,36.62695 40.97032,40.97032 36.62814,45.3137 30.6277,48 24.0006,48 17.3723,48 11.37306,45.3137 7.02968,40.97032 2.6863,36.62695 0,30.6265 0,23.9994 0,17.37231 2.6863,11.37186 7.02968,7.02968 z</x:String>
+
+
+    <Style x:Key="UnstyledGraphicsButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}"/>
+        <Setter Property="Padding" Value="12,4,12,4"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Path Width="{Binding Width, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+						Height="{Binding Width, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+						Stretch="Uniform"
+						Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+						Data="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource HandbookForegroundButtonBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource HandbookPointerOverButtonBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="ContentPresenter" d:IsOptimized="True" To="0.85"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="ContentPresenter" d:IsOptimized="True" To="0.85"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke)" Storyboard.TargetName="FocusVisualBlack">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource HandbookForegroundButtonBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="PointerFocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="0">
+                            <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RenderTransformOrigin="0.5,0.5">
+                                <ContentPresenter.RenderTransform>
+                                    <CompositeTransform/>
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                        </Border>
+                        <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                        <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <SolidColorBrush x:Key="RadioButtonBackgroundThemeBrush" Color="Red" />
+    <SolidColorBrush x:Key="RadioButtonPointerOverBackgroundThemeBrush" Color="Red" />
+    <SolidColorBrush x:Key="RadioButtonPressedBackgroundThemeBrush" Color="Red" />
+
+
+    <SolidColorBrush x:Key="RadioButtonDisabledBackgroundThemeBrush" Color="LightGray" />
+    <SolidColorBrush x:Key="RadioButtonDisabledBorderThemeBrush" Color="LightGray" />
+    <SolidColorBrush x:Key="RadioButtonDisabledForegroundThemeBrush" Color="LightGray" />
+    <SolidColorBrush x:Key="RadioButtonContentDisabledForegroundThemeBrush" Color="LightGray" />
+
+    <SolidColorBrush x:Key="RadioButtonForegroundThemeBrush" Color="Black" />
+    <SolidColorBrush x:Key="RadioButtonPointerOverForegroundThemeBrush" Color="White" />
+    <SolidColorBrush x:Key="RadioButtonPressedForegroundThemeBrush" Color="White" />
+
+    <Style x:Key="ColorRadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{ThemeResource RadioButtonContentForegroundThemeBrush}"/>
+        <Setter Property="Padding" Value="1,4,0,0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundEllipse"
+                                                                Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundEllipse"
+                                                                Storyboard.TargetProperty="Stroke">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource RadioButtonPointerOverBorderThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph"
+                                                                Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource RadioButtonPointerOverForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundEllipse"
+                                                                   Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"  />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundEllipse"
+                                                                   Storyboard.TargetProperty="Stroke">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource RadioButtonPressedBorderThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph"
+                                                                   Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource RadioButtonPressedForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="ContentGrid" d:IsOptimized="True" To="0.85"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="ContentGrid" d:IsOptimized="True" To="0.85"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundEllipse"
+                                                                Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundEllipse"
+                                                                Storyboard.TargetProperty="Stroke">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource RadioButtonDisabledBorderThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph"
+                                                                Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource RadioButtonContentDisabledForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="CheckGlyph"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="1"
+                                                    Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked" />
+                                <VisualState x:Name="Indeterminate" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisualWhite"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="1"
+                                                    Duration="0" />
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisualBlack"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="1"
+                                                    Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="ContentGrid" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <CompositeTransform/>
+                            </Grid.RenderTransform>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="75" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid VerticalAlignment="Top">
+                                <Ellipse x:Name="BackgroundEllipse"
+                                    Width="60"
+                                    Height="60"
+                                    UseLayoutRounding="False"
+                                    Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+                                    Stroke="{ThemeResource RadioButtonBorderThemeBrush}"
+                                    StrokeThickness="{ThemeResource RadioButtonBorderThemeThickness}" />
+                                <Ellipse x:Name="CheckGlyph"
+                                    Width="30"
+                                    Height="30"
+                                    UseLayoutRounding="False"
+                                    Opacity="0"
+                                    Fill="{ThemeResource RadioButtonForegroundThemeBrush}" />
+                                <Rectangle x:Name="FocusVisualWhite"
+                                    Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}"
+                                    StrokeEndLineCap="Square"
+                                    StrokeDashArray="1,1"
+                                    Opacity="0"
+                                    StrokeDashOffset="1.5"
+                                    Width="75"
+                                    Height="75" />
+                                <Rectangle x:Name="FocusVisualBlack"
+                                    Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}"
+                                    StrokeEndLineCap="Square"
+                                    StrokeDashArray="1,1"
+                                    Opacity="0"
+                                    StrokeDashOffset="0.5"
+                                    Width="75"
+                                    Height="75" />
+                            </Grid>
+                            <ContentPresenter x:Name="ContentPresenter"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTransitions="{TemplateBinding ContentTransitions}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Margin="{TemplateBinding Padding}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Grid.Column="1"
+                                        AutomationProperties.AccessibilityView="Raw" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="UnstyledProgressButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Path Width="{Binding Width, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+						Height="{Binding Width, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+						Stretch="Uniform"
+						Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+						Data="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="ContentPresenter">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="180"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="360"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Enabled">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="ContentPresenter">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="0">
+                            <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RenderTransformOrigin="0.5,0.5">
+                                <ContentPresenter.RenderTransform>
+                                    <CompositeTransform/>
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                        </Border>
+                        <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                        <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

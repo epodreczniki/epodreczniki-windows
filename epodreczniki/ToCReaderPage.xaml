@@ -1,0 +1,651 @@
+﻿<Page
+    x:Name="pageRoot"
+    x:Class="epodreczniki.ToCReaderPage"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"   
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:epodreczniki"
+    xmlns:common="using:epodreczniki.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <Style x:Key="ButtonSubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="LineHeight" Value="15"/>
+        </Style>
+
+        <Style x:Key="ProgressIndicatorTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="ExtraLight"/>
+        </Style>
+
+        <Style x:Key="SelectedTabTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <Style x:Key="NormalTabTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="Gray"/>
+        </Style>
+
+        <Storyboard x:Name="ExitToCStoryboard" Completed="ExitToCStoryboard_Completed">
+            <PopOutThemeAnimation TargetName="listsBorder"/>
+        </Storyboard>
+
+        <Storyboard x:Name="EnterToCStoryboard" Completed="EnterToCStoryboard_Completed">
+            <PopInThemeAnimation SpeedRatio="0.7"
+                FromVerticalOffset="{Binding TemplateSettings.FromVerticalOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+                FromHorizontalOffset="0"
+                TargetName="listsBorder"/>
+        </Storyboard>
+
+        <Storyboard x:Name="ExitNoteStoryboard" Completed="ExitNoteStoryboard_Completed">
+            <PopOutThemeAnimation TargetName="noteBorder"/>
+        </Storyboard>
+
+        <Storyboard x:Name="EnterNoteStoryboard" Completed="EnterNoteStoryboard_Completed">
+            <PopInThemeAnimation SpeedRatio="0.7"
+                FromVerticalOffset="{Binding TemplateSettings.FromVerticalOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+                FromHorizontalOffset="0"
+                TargetName="noteBorder"/>
+        </Storyboard>
+
+        <Style x:Key="NoteTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="50" />
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="MaxWidth" Value="1500"/>
+        </Style>
+
+        <Style x:Key="NoteLargeAttributeTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="LineHeight" Value="30"/>
+        </Style>
+
+        <Style x:Key="NoteLargeAttributeLabelBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource NoteLargeAttributeTextBlockStyle}">
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,20,20,10"/>
+            <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+
+        <SolidColorBrush x:Key="TabButtonPointerOverBackgroundThemeBrush" Color="LightGray" />
+        <SolidColorBrush x:Key="TabButtonPointerOverForegroundThemeBrush" Color="White" />
+        <SolidColorBrush x:Key="TabButtonPressedBackgroundThemeBrush" Color="Gray" />
+        <SolidColorBrush x:Key="TabButtonPressedForegroundThemeBrush" Color="White" />
+
+        <SolidColorBrush x:Key="TabButtonDisabledBackgroundThemeBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="TabButtonDisabledBorderThemeBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="TabButtonDisabledForegroundThemeBrush" Color="Transparent" />
+
+        <SolidColorBrush x:Key="SelectedTabButtonPointerOverBackgroundThemeBrush" Color="White" />
+        <SolidColorBrush x:Key="SelectedTabButtonPointerOverForegroundThemeBrush" Color="Gray" />
+        <SolidColorBrush x:Key="SelectedTabButtonPressedBackgroundThemeBrush" Color="LightGray" />
+        <SolidColorBrush x:Key="SelectedTabButtonPressedForegroundThemeBrush" Color="Gray" />
+
+        <SolidColorBrush x:Key="SelectedTabButtonDisabledBackgroundThemeBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="SelectedTabButtonDisabledBorderThemeBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="SelectedTabButtonDisabledForegroundThemeBrush" Color="Transparent" />
+
+
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+        							    Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TabButtonPointerOverBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+        							    Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TabButtonPointerOverForegroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+        							    Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TabButtonPressedBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+        							    Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TabButtonPressedForegroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+        							    Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TabButtonDisabledBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+        							    Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TabButtonDisabledBorderThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+        							    Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TabButtonDisabledForegroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="FocusVisualWhite"
+        							    Storyboard.TargetProperty="Opacity"
+        							    To="1"
+        							    Duration="0" />
+                                            <DoubleAnimation Storyboard.TargetName="FocusVisualBlack"
+        							    Storyboard.TargetProperty="Opacity"
+        							    To="1"
+        							    Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="PointerFocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border"
+        			    Background="{TemplateBinding Background}"
+        			    BorderBrush="{TemplateBinding BorderBrush}"
+        			    BorderThickness="{TemplateBinding BorderThickness}"
+        			    Margin="3">
+                                <ContentPresenter x:Name="ContentPresenter"
+        				    Content="{TemplateBinding Content}"
+        				    ContentTransitions="{TemplateBinding ContentTransitions}"
+        				    ContentTemplate="{TemplateBinding ContentTemplate}"
+        				    Margin="{TemplateBinding Padding}"
+        				    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        				    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+        				    AutomationProperties.AccessibilityView="Raw"/>
+                            </Border>
+                            <Rectangle x:Name="FocusVisualWhite"
+        			    IsHitTestVisible="False"
+        			    Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}"
+        			    StrokeEndLineCap="Square"
+        			    StrokeDashArray="1,1"
+        			    Opacity="0"
+        			    StrokeDashOffset="1.5" />
+                            <Rectangle x:Name="FocusVisualBlack"
+        			    IsHitTestVisible="False"
+        			    Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}"
+        			    StrokeEndLineCap="Square"
+        			    StrokeDashArray="1,1"
+        			    Opacity="0"
+        			    StrokeDashOffset="0.5" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SelectedTabButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+        							    Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SelectedTabButtonPointerOverBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+        							    Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SelectedTabButtonPointerOverForegroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+        							    Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SelectedTabButtonPressedBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+        							    Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SelectedTabButtonPressedForegroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+        							    Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SelectedTabButtonDisabledBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+        							    Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SelectedTabButtonDisabledBorderThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+        							    Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SelectedTabButtonDisabledForegroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="FocusVisualWhite"
+        							    Storyboard.TargetProperty="Opacity"
+        							    To="1"
+        							    Duration="0" />
+                                            <DoubleAnimation Storyboard.TargetName="FocusVisualBlack"
+        							    Storyboard.TargetProperty="Opacity"
+        							    To="1"
+        							    Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="PointerFocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border"
+        			    Background="{TemplateBinding Background}"
+        			    BorderBrush="{TemplateBinding BorderBrush}"
+        			    BorderThickness="{TemplateBinding BorderThickness}"
+        			    Margin="3">
+                                <ContentPresenter x:Name="ContentPresenter"
+        				    Content="{TemplateBinding Content}"
+        				    ContentTransitions="{TemplateBinding ContentTransitions}"
+        				    ContentTemplate="{TemplateBinding ContentTemplate}"
+        				    Margin="{TemplateBinding Padding}"
+        				    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        				    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+        				    AutomationProperties.AccessibilityView="Raw"/>
+                            </Border>
+                            <Rectangle x:Name="FocusVisualWhite"
+        			    IsHitTestVisible="False"
+        			    Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}"
+        			    StrokeEndLineCap="Square"
+        			    StrokeDashArray="1,1"
+        			    Opacity="0"
+        			    StrokeDashOffset="1.5" />
+                            <Rectangle x:Name="FocusVisualBlack"
+        			    IsHitTestVisible="False"
+        			    Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}"
+        			    StrokeEndLineCap="Square"
+        			    StrokeDashArray="1,1"
+        			    Opacity="0"
+        			    StrokeDashOffset="0.5" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Page.TopAppBar>
+        <AppBar Height="140">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="backButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"
+                        Click="backButton_Click"
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource BackPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" />
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1" >
+                    <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}"
+                            IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="0,0,30,0"/>
+                    <ProgressBar x:Name="progressIndicator" Height="15" Width="300" IsIndeterminate="True" Margin="50,10,0,0" Visibility="Collapsed"/>
+                    <TextBlock x:Name="progressTextBlock" Text="pobieranie danych w toku..." Style="{StaticResource ProgressIndicatorTextBlockStyle}" 
+                            IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center"  Margin="30,0,0,0" Visibility="Collapsed"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.TopAppBar>
+
+    <Page.BottomAppBar>
+        <AppBar>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="PrevPageButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource PrevPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="PrevPageButton_Tapped"/>
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Poprzednia strona
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="ToCButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource ToCPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="ToCButton_Tapped"/>
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Spis treści
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="NextPageButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource NextPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="NextPageButton_Tapped"/>
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Następna strona
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="BackPageButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"                        
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource BackPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="BackPageButton_Tapped" />
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Wstecz
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="ForwardPageButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"                        
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource ReadSmallPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="ForwardPageButton_Tapped" />
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Dalej
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="FontSizeIncButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"                        
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource FontSizeInc}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="FontSizeIncButton_Tapped" />
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Zwiększ
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="FontSizeDecButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"                        
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource FontSizeDec}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="FontSizeDecButton_Tapped" />
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Zmniejsz
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="CloseExternalButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"                        
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource CancelPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="CloseExternalButton_Tapped" IsEnabled="False" />
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Zamknij
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="AddNoteButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"                        
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource AddNotePath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="AddNoteButton_Tapped" />
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Dodaj notatkę
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="25,7,0,10">
+                    <Button x:Name="AddBookmarkButton" Width="67" Height="67" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"                        
+                        Foreground="{StaticResource HandbookForegroundButtonBrush}" Content="{StaticResource AddBookmarkPath}" 
+                        Style="{StaticResource UnstyledGraphicsButtonStyle}" Background="Transparent" BorderBrush="{x:Null}" Tapped="AddBookmarkButton_Tapped" />
+                    <TextBlock TextAlignment="Center" Style="{StaticResource ButtonSubtitleTextBlockStyle}" >
+                        Dodaj zakładkę
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </AppBar>
+
+
+    </Page.BottomAppBar>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <FlipView x:Name="htmlFlipView" Grid.Row="1" Background="White" SelectionChanged="htmlFlipView_SelectionChanged">
+
+        </FlipView>
+
+        <WebView x:Name="externalWebView" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed" NavigationStarting="externalWebView_NavigationStarting" NavigationCompleted="externalWebView_NavigationCompleted" />
+
+        <Canvas x:Name="readerBackground" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed" Background="#F2FFFFFF"></Canvas>
+
+        <Canvas x:Name="tocBackground" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="tocBackground_Tapped"  Visibility="Collapsed" Background="#01FFFEC8" >
+            <ScrollViewer x:Name="infoScrollViewer" Margin="750,3,3,0" HorizontalAlignment="Right" VerticalScrollBarVisibility="Auto" Background="#E52A4E77" Visibility="Collapsed">
+                <StackPanel x:Name="infoStackPanel" HorizontalAlignment="Right" Orientation="Vertical" Margin="10,5,10,5">
+                </StackPanel>
+            </ScrollViewer>
+        </Canvas>
+
+        <Canvas x:Name="noteBackground" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="noteBackground_Tapped" Visibility="Collapsed" Background="#01FFFEC8" />
+
+        <Border x:Name="listsBorder" Margin="5,3,0,3" BorderThickness="0, 0, 5, 0" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="#E5FFFFFF" Visibility="Collapsed">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="1,.5" EndPoint="0,.5">
+                    <GradientStop Color="#00808080" Offset="0"/>
+                    <GradientStop Color="#FF4B4B4B" Offset=".007"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Grid x:Name="listsGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                    <Button x:Name="tocHeaderButton" Width="180" Content="Spis treści"  Background="White" Foreground="Black" FontSize="25" BorderBrush="Black" HorizontalAlignment="Left" Style="{StaticResource TabButtonStyle}" Tapped="TabHeaderLabel_Tapped" />
+                    <Button x:Name="notesHeaderButton" Grid.Column="1" Width="180" Content="Notatki" Background="LightGray" Foreground="Gray" FontSize="25" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,0,0,0" Style="{StaticResource TabButtonStyle}" Tapped="TabHeaderLabel_Tapped" />
+                    <Button x:Name="bookmarksHeaderButton" Grid.Column="2" Width="180" Content="Zakładki" Background="LightGray" Foreground="Gray" FontSize="25" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,0,0,0" Style="{StaticResource TabButtonStyle}" Tapped="TabHeaderLabel_Tapped" />
+                </StackPanel>                
+
+                <Canvas Grid.Row="1" Grid.ColumnSpan="3" Background="#FFA4A4A4" Margin="15,0"></Canvas>
+
+                <ScrollViewer x:Name="tocScrollViewer" Grid.Row="2" Margin="5,15,0,3" ZoomMode="Disabled" BorderThickness="0, 0, 5, 0" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" Visibility="Visible" Tapped="tocScrollViewer_Tapped" >
+                    <Grid x:Name="tocGrid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,50,30,20" Height="{Binding TotalHeight}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="52"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="3"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Canvas x:Name="tocCanvasBack" Grid.Row="1" Width="52" Height="50" Tag="{Binding Parent}" Tapped="tocCanvasBack_Tapped" Visibility="{Binding BackVisibility}">
+                            <Rectangle Fill="#E55CADFF" Height="50" Stroke="White" Width="50" StrokeThickness="0" HorizontalAlignment="Left" />
+                            <Path Stroke="Black" Data="M 28,12 15,25 L 28,38" UseLayoutRounding="True" StrokeThickness="3" />
+                        </Canvas>
+                        <Canvas x:Name="tocHeaderContainer" Grid.Column="1" Grid.Row="1" Background="#E55CADFF" Width="Auto" Height="50"  Margin="2, 2, 52, 2" >
+                            <TextBlock VerticalAlignment="Center" x:Name="tocTextHeader" Text="{Binding Title}" FontSize="30" Margin="20,5" Visibility="{Binding HeaderVisibility}" />
+                        </Canvas>
+
+                        <ItemsControl x:Name="childrenStack" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Children}" HorizontalAlignment="Stretch">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:Name="childItem" Grid.Row="0" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Canvas x:Name="tocChildContainer" Background="{Binding BackgroundColor}" Width="Auto" Height="50"  Margin="2" Tag="{Binding Id}" Tapped="tocChildContainer_Tapped"  SizeChanged="tocHeaderContainer_SizeChanged" Visibility="Visible" >
+                                            <TextBlock TextTrimming="CharacterEllipsis" Width="Auto" Foreground="{Binding ForegroundColor}" VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="tocChildHeader" Text="{Binding Title}" FontSize="30" Margin="40,5,20,5" />
+                                        </Canvas>
+                                        <Canvas x:Name="tocCanvasContent" Width="50" Height="50" Grid.Column="1" Tapped="tocCanvasContent_Tapped"  Tag="{Binding Id}" Visibility="{Binding ChildrenVisibility}" Margin="2">
+                                            <Rectangle Fill="#E5B3D4FC" Height="50" Stroke="White" Width="50" StrokeThickness="0" />
+                                            <Path Stroke="Black" Data="M 22,12 35,25  L 22,38" UseLayoutRounding="True" StrokeThickness="3"  />
+                                        </Canvas>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </Grid>
+                </ScrollViewer>
+
+                <ScrollViewer x:Name="notesScrollViewer" Grid.Row="2" Margin="5,15,0,3" ZoomMode="Disabled" BorderThickness="0, 0, 5, 0" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" Visibility="Collapsed" >                
+                    <Grid x:Name="notesGrid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,50,30,20" Height="{Binding TotalHeight}">                        
+                        <ItemsControl x:Name="notesStack" ItemsSource="{Binding Notes}" HorizontalAlignment="Stretch">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:Name="childItem"  Grid.Row="0"  HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Canvas x:Name="noteTypeCanvas" Width="30" Height="50" Tag="{Binding Type}" Margin="2">
+                                            <Rectangle Fill="{Binding Color}" Height="50" Stroke="White" Width="25" StrokeThickness="0" HorizontalAlignment="Left" />
+                                        </Canvas>
+                                        <Canvas x:Name="noteSubjectCanvas" Grid.Column="1" Background="#E5B3D4FC" Tapped="noteSubjectCanvas_Tapped" Width="Auto" Height="50"  Margin="2" Tag="{Binding LocalNoteId}" SizeChanged="noteSubjectCanvas_SizeChanged">
+                                                <TextBlock TextTrimming="CharacterEllipsis" Width="Auto" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="noteSubject" Text="{Binding Subject}" FontSize="30" Margin="20,5,20,5" />
+                                        </Canvas>
+                                        <Canvas x:Name="noteContentCanvas" Grid.Column="2" Width="50" Height="50" Tag="{Binding LocalNoteId}" Margin="2" Tapped="noteContentCanvas_Tapped">
+                                            <Rectangle Fill="#E5B3D4FC" Height="50" Stroke="White" Width="50" StrokeThickness="0" />
+                                            <Path Stroke="Black" Data="M 22,12 35,25  L 22,38" UseLayoutRounding="True" StrokeThickness="3"  />
+                                        </Canvas>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>                                             
+                    </Grid>
+                </ScrollViewer>
+
+                <ScrollViewer x:Name="bookmarksScrollViewer" Grid.Row="2" Margin="5,15,0,3" ZoomMode="Disabled" BorderThickness="0, 0, 5, 0" HorizontalAlignment="Left" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" Visibility="Collapsed" >
+                    <Grid x:Name="bookmarksGrid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,50,30,20" Height="{Binding TotalHeight}">
+                        <ItemsControl x:Name="bookmarksStack" ItemsSource="{Binding Bookmarks}" HorizontalAlignment="Stretch">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:Name="childItem" Grid.Row="0" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Canvas x:Name="bookmarkTypeCanvas" Width="30" Height="50" Tag="{Binding Type}" Margin="2">
+                                            <Rectangle Fill="{Binding Color}" Height="50" Stroke="White" Width="25" StrokeThickness="0" HorizontalAlignment="Left" />
+                                        </Canvas>
+                                        <Canvas x:Name="bookmarkSubjectCanvas" Grid.Column="1" Background="#E5B3D4FC" Tapped="noteSubjectCanvas_Tapped" Width="Auto" Height="50"  Margin="2" Tag="{Binding LocalNoteId}">
+                                            <TextBlock TextTrimming="CharacterEllipsis" Width="Auto" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="noteSubject" Text="{Binding Subject}" FontSize="30" Margin="20,5,20,5" />
+                                        </Canvas>
+                                        <Canvas x:Name="bookmarkContentCanvas" Grid.Column="2" Width="50" Height="50" Tag="{Binding LocalNoteId}" Margin="2" Tapped="noteContentCanvas_Tapped">
+                                            <Rectangle Fill="#E5B3D4FC" Height="50" Stroke="White" Width="50" StrokeThickness="0" />
+                                            <Path Stroke="Black" Data="M 22,12 35,25  L 22,38" UseLayoutRounding="True" StrokeThickness="3"  />
+                                        </Canvas>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </ScrollViewer>                
+            </Grid>
+        </Border>        
+        
+        <Border x:Name="noteBorder" BorderThickness="5,0,0,0" Margin="0,3,3,3" HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="#E5FFFFFF" Visibility="Collapsed" >
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,.5">
+                    <GradientStop Color="#00808080" Offset="0"/>
+                    <GradientStop Color="#FF4B4B4B" Offset=".007"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Grid x:Name="noteGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="650" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="200"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="lblNoteSubject" Text="Nazwa notatki" Style="{StaticResource NoteLargeAttributeLabelBlockStyle}" Grid.Column="1" Grid.Row="1" />
+                <TextBox x:Name="txtNoteSubject" Style="{StaticResource NoteTextBoxStyle}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black" />
+
+                <TextBlock x:Name="lblNoteValue" Text="Treść notatki" Style="{StaticResource NoteLargeAttributeLabelBlockStyle}" Grid.Column="1" Grid.Row="3" />
+                <TextBox x:Name="txtNoteValue" Style="{StaticResource NoteTextBoxStyle}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AcceptsReturn="True" TextWrapping="Wrap" Height="Auto" Margin="0,0,0,0" BorderBrush="Black" />
+
+                <TextBlock x:Name="lblTypeValue" Text="Typ notatki" Style="{StaticResource NoteLargeAttributeLabelBlockStyle}" Grid.Column="1" Grid.Row="5" />
+                
+                <Grid x:Name="typesGrid" Grid.Column="1" Grid.Row="6" Background="Transparent" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton IsChecked="True" Foreground="LightGray" Style="{StaticResource ColorRadioButtonStyle}" GroupName="NoteType"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 x:Name="type0Button" Grid.Column="0" Tag="Note_0"  />
+
+                    <RadioButton Foreground="LightGray" Style="{StaticResource ColorRadioButtonStyle}" GroupName="NoteType"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 x:Name="type1Button" Grid.Column="1" Tag="Note_1"  />
+                    
+                    <RadioButton Foreground="LightGray" Style="{StaticResource ColorRadioButtonStyle}" GroupName="NoteType"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 x:Name="type2Button" Grid.Column="2" Tag="Note_2"  />
+
+                    <RadioButton Foreground="LightGray" Style="{StaticResource ColorRadioButtonStyle}" GroupName="NoteType"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 x:Name="type3Button" Grid.Column="3" Tag="Note_3"  />
+
+                    <RadioButton Foreground="LightGray" Style="{StaticResource ColorRadioButtonStyle}" GroupName="NoteType"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 x:Name="type4Button" Grid.Column="4" Tag="Bookmark_0"  />
+
+                    <RadioButton Foreground="LightGray" Style="{StaticResource ColorRadioButtonStyle}" GroupName="NoteType"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 x:Name="type5Button" Grid.Column="5" Tag="Bookmark_1"  />
+
+                    <RadioButton Foreground="LightGray" Style="{StaticResource ColorRadioButtonStyle}" GroupName="NoteType"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 x:Name="type6Button" Grid.Column="6" Tag="Bookmark_2"  />                                                                                               
+                </Grid>            
+
+                <Button x:Name="CancelNoteButton" Content="Anuluj" Grid.Column="1" Grid.Row="8" Tapped="CancelNoteButton_Tapped"  Style="{StaticResource WhiteLargeButtonStyle}" />
+
+                <Button x:Name="DeleteNoteButton" Content="Usuń" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" Tapped="DeleteNoteButton_Tapped"  Style="{StaticResource WhiteLargeButtonStyle}" />
+
+                <Button x:Name="EditNoteButton" Content="Edytuj" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Right" Tapped="EditNoteButton_Tapped"  Style="{StaticResource WhiteLargeButtonStyle}" />
+
+                <Button x:Name="SaveNoteButton" Content="Zapisz" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Right" Tapped="SaveNoteButton_Tapped" Style="{StaticResource WhiteLargeButtonStyle}" />
+
+            </Grid>
+        </Border>
+    </Grid>
+
+</Page>
+
+    

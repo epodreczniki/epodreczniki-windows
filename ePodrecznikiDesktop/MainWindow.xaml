@@ -1,0 +1,86 @@
+﻿<Window x:Class="ePodrecznikiDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="E-podręczniki" Height="600" Width="1000" MinHeight="600" MinWidth="800" x:Name="ui_MainWindow" Loaded="MainWindow_Loaded" WindowState="Maximized" >
+    <Window.Resources>
+        <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="#FFFFFFFF"/>
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Typography.StylisticSet20" Value="True"/>
+            <Setter Property="Typography.DiscretionaryLigatures" Value="True"/>
+            <Setter Property="Typography.CaseSensitiveForms" Value="True"/>
+            <Setter Property="LineHeight" Value="20"/>
+            <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+        </Style>
+
+        <Style x:Key="HandbookTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="LineHeight" Value="28"/>
+        </Style>
+
+        <Style x:Key="HandbookSubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="LineHeight" Value="25"/>
+        </Style>
+
+        <Style x:Key="ProgressValueTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="70"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="LineHeight" Value="48"/>
+        </Style>
+
+        <Style x:Key="ProgressLabelTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="ExtraLight"/>
+        </Style>
+
+        <Style x:Key="ProgressIndicatorTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="ExtraLight"/>
+        </Style>
+
+        <Style x:Key="ButtonSubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="LineHeight" Value="15"/>
+            <Setter Property="Margin" Value="0,7,0,0"/>
+        </Style>
+
+        <Style x:Key="CaptionTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+
+        <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="56"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="LineHeight" Value="40"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="ui_Menu" Orientation="Horizontal" Height="120" Grid.Row="0" VerticalAlignment="Center" Background="Black" Visibility="Collapsed">
+
+            <Button x:Name="ui_ReturnButton" Click="ReturnButton_Click" Foreground="{StaticResource HandbookForegroundButtonBrush}" Margin="25,3,0,0" Width="67" Height="100"
+                    Background="Transparent" BorderBrush="{x:Null}" Style="{StaticResource UnstyledGraphicsButtonStyle}" Tag="" Content="{StaticResource BackPath}" >
+            </Button>
+                        
+            <StackPanel Orientation="Horizontal" Grid.Column="1" >
+                <TextBlock x:Name="ui_AppTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" VerticalAlignment="Center" Margin="28,2,30,0"/>
+            </StackPanel>
+        </StackPanel>
+        <Frame x:Name="ui_MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"></Frame>
+    </Grid>
+</Window>
